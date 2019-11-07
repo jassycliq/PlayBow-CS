@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#2196f3</color>
+    <color name="colorPrimaryDark">#0069c0</color>
+    <color name="colorPrimaryLight">#6ec6ff</color>
+    <color name="colorAccent">#ffeb3b</color>
+    <color name="colorSurface">#FFFFFFFF</color>
+    <color name="onSurface">#000000</color>
+
+    <color name="textPrimary">#DE000000</color>
+    <color name="textSecondary">#8A000000</color>
+
+    <color name="secondaryLightColor">#ffff72</color>
+    <color name="secondaryDarkColor">#c8b900</color>
+    <color name="colorAccentOrange">#ef4400</color>
+    <color name="colorLightAnalogousAqua">#00efbb</color>
+    <color name="colorDarkAnalogousBlue">#0034ef</color>
+    <color name="colorLightTriadicPurple">#4400ef</color>
+    <color name="colorDarkTriadicPink">#ef00ab</color>
+
+    <color name="colorHoloRedLight">@android:color/holo_red_light</color>
+    <color name="colorHoloRedDark">@android:color/holo_red_dark</color>
+    <color name="colorHoloGreenDark">@android:color/holo_green_dark</color>
+    <color name="colorHoloGreenLight">@android:color/holo_green_light</color>
+</resources>
+

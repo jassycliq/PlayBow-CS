@@ -1,7 +1,7 @@
 package com.jassycliq.playbowcs.activity.ui.ownership;
 
+import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -23,8 +23,11 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.jassycliq.playbowcs.R;
 import com.jassycliq.playbowcs.UserProfile;
+import com.jassycliq.playbowcs.activity.data.model.OwnershipModel;
+import com.jassycliq.playbowcs.activity.ui.SharedViewModel;
+import com.jassycliq.playbowcs.activity.ui.login.LoginActivity;
 import com.jassycliq.playbowcs.activity.ui.userProfile.UserProfileFragment;
-import com.jassycliq.playbowcs.model.OwnershipModel;
+import com.jassycliq.playbowcs.utils.StartActivityInterface;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -63,12 +66,10 @@ public class OwnershipFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-//        fragmentManager = getChildFragmentManager();
-        sharedViewModel = ViewModelProviders.of(getActivity()).get(SharedViewModel.class);
+        sharedViewModel = ViewModelProviders.of(requireActivity()).get(SharedViewModel.class);
         ownershipViewModel = ViewModelProviders.of(this).get(OwnershipViewModel.class);
         fragmentManager = getFragmentManager();
 
-        // TODO: Use the ViewModel
         recyclerView.setAdapter(ownershipViewModel.getAdapter());
         swipeContainer.setColorSchemeResources(android.R.color.holo_blue_bright,
                 android.R.color.holo_green_light,
@@ -77,13 +78,25 @@ public class OwnershipFragment extends Fragment {
 
         // Setup refresh listener which triggers new data loading
         swipeContainer.setOnRefreshListener(() -> {
-            swipeContainer.setAlpha((float) 0.20);
             ownershipViewModel.getUsers(swipeContainer);
         });
 
-        if (ownershipViewModel.getAdapter().getItemCount() == 0) {
-            ownershipViewModel.getUsers(swipeContainer);
-        }
+        ownershipViewModel.getOwnershipResult().observe(this, ownershipResult -> {
+            if (ownershipResult == null) {
+                return;
+            }
+            if (ownershipResult.getFailure() != null) {
+                Intent intent = new Intent(OwnershipFragment.this.requireActivity(), LoginActivity.class);
+                ((StartActivityInterface) OwnershipFragment.this.requireActivity()).startMyIntent(intent);
+            }
+        });
+
+        ownershipViewModel.getUsers(swipeContainer);
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
     }
 
     @Override
@@ -109,7 +122,6 @@ public class OwnershipFragment extends Fragment {
                 recyclerView.scrollToPosition(0);
                 return true;
             }
-
         });
     }
 
@@ -123,17 +135,13 @@ public class OwnershipFragment extends Fragment {
 
         public void bind(OwnershipModel.UserProfile item) {
             mBinding.setModel(item);
-            mBinding.homeActivityOnClickView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Log.e("Activity.onUserClick: ", "fired");
-                    sharedViewModel.select(item);
-                    UserProfileFragment userProfileFragment = new UserProfileFragment();
-                    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                    fragmentTransaction.replace(R.id.container, userProfileFragment);
-                    fragmentTransaction.addToBackStack(null);
-                    fragmentTransaction.commit();
-                }
+            mBinding.homeActivityOnClickView.setOnClickListener(v -> {
+                sharedViewModel.select(item);
+                UserProfileFragment userProfileFragment = new UserProfileFragment();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                fragmentTransaction.replace(R.id.container, userProfileFragment);
+                fragmentTransaction.addToBackStack(null);
+                fragmentTransaction.commit();
             });
         }
     }

@@ -1,4 +1,4 @@
-package com.jassycliq.playbowcs.model;
+package com.jassycliq.playbowcs.activity.data.model;
 
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -6,17 +6,19 @@ import android.widget.TextView;
 import androidx.databinding.BaseObservable;
 import androidx.databinding.BindingAdapter;
 
-import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.RequestOptions;
 import com.google.android.material.chip.ChipGroup;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 import com.jassycliq.playbowcs.R;
+import com.jassycliq.playbowcs.utils.GlideApp;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+
+import static com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions.withCrossFade;
 
 public class OwnershipModel {
 
@@ -98,7 +100,7 @@ public class OwnershipModel {
         private DogOwnership dogOwnership;
         @SerializedName("booked_dates")
         @Expose
-        private List<Object> bookedDates = null;
+        private List<BookingData> bookedDates = null;
 
         public String getUserID() {
             return userID;
@@ -164,11 +166,11 @@ public class OwnershipModel {
             this.dogOwnership = dogOwnership;
         }
 
-        public List<Object> getBookedDates() {
+        public List<BookingData> getBookedDates() {
             return bookedDates;
         }
 
-        public void setBookedDates(List<Object> bookedDates) {
+        public void setBookedDates(List<BookingData> bookedDates) {
             this.bookedDates = bookedDates;
         }
 
@@ -177,12 +179,18 @@ public class OwnershipModel {
             if (this == o) return true;
             if (o == null || getClass() != o.getClass()) return false;
             UserProfile that = (UserProfile) o;
-            return getUserID().equals(that.getUserID());
+            return userID.equals(that.userID) &&
+                    Objects.equals(userFirstName, that.userFirstName) &&
+                    Objects.equals(userLastName, that.userLastName) &&
+                    username.equals(that.username) &&
+                    userStatus.equals(that.userStatus) &&
+                    Objects.equals(userAddress, that.userAddress) &&
+                    Objects.equals(ewalletBalance, that.ewalletBalance);
         }
 
         @Override
         public int hashCode() {
-            return Objects.hash(getUserID());
+            return Objects.hash(userID, userFirstName, userLastName, username, userStatus, userAddress, ewalletBalance);
         }
 
         public static class DogOwnership extends BaseObservable {
@@ -228,15 +236,16 @@ public class OwnershipModel {
                 }
 
             }
-
         }
-
     }
 
     @BindingAdapter("imgUrl")
     public static void setDogPhoto(ImageView view, String dogPhoto) {
-        Glide.with(view.getContext())
-                .load(dogPhoto).apply(new RequestOptions().circleCrop())
+        GlideApp.with(view.getContext())
+                .load(dogPhoto)
+                .apply(new RequestOptions().circleCrop())
+//                .thumbnail(0.1f)
+                .transition(withCrossFade())
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .into(view);
     }

@@ -6,7 +6,7 @@
   <data class="com.jassycliq.playbowcs.UserProfile">
     <variable
         name="model"
-        type="com.jassycliq.playbowcs.model.OwnershipModel.UserProfile"/>
+        type="com.jassycliq.playbowcs.activity.data.model.OwnershipModel.UserProfile"/>
     <variable
         name="imageUrl"
         type="String" />

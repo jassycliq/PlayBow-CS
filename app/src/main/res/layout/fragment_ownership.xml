@@ -13,19 +13,19 @@
             android:id="@+id/home_activity_swipe_refresh"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            tools:viewBindingIgnore="true"
+            android:layout_marginTop="8dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintTop_toTopOf="parent"
+            tools:viewBindingIgnore="true">
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/home_activity_recycler_view"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                tools:listitem="@layout/recycler_view_items"
-                />
+                tools:listitem="@layout/recycler_view_items" />
 
         </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 

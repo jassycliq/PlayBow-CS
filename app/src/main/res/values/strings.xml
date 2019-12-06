@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">PlayBow CS</string>
+    <string name="app_name">PlayBow</string>
     <string name="title_activity_login">Sign in</string>
     <string name="prompt_email">Email</string>
     <string name="prompt_password">Password</string>
@@ -8,6 +8,10 @@
     <string name="welcome">"Welcome"</string>
     <string name="invalid_username">Not a valid username</string>
     <string name="invalid_password">Password must be >5 characters</string>
+    <string name="invalid_first_name">First name must be >3 characters</string>
+    <string name="invalid_last_name">Last name must be >3 characters</string>
+    <string name="invalid_postal_address">Postal address must be >9 characters</string>
+    <string name="invalid_account_adjustment">Account adjustment must be more than $9</string>
     <string name="login_failed">"Login failed"</string>
     <string name="no_dog">User has no dogs!</string>
     <string name="no_dog_image">https://playbow-aws-django-static.s3.amazonaws.com/media/no_dog.jpg</string>
@@ -20,11 +24,15 @@
     <string name="title_activity_main">MainActivity</string>
     <string name="fragment_user_details_first_name">First Name</string>
     <string name="fragment_user_details_last_name">Last Name</string>
+    <string name="fragment_user_details_email_username">Email/Username</string>
     <string name="fragment_user_details_account_status">Account Status</string>
     <string name="fragment_user_details_inactive">Inactive</string>
     <string name="fragment_user_details_active">Active</string>
     <string name="fragment_user_details_address">Address</string>
     <string name="fragment_user_details_full_customer_address">Full customer address</string>
     <string name="fragment_user_details_balance">Balance</string>
-    <string name="fragment_user_details_adjustment_amount">Adjustment Amount</string>
+    <string name="fragment_user_details_adjustment_amount">Adjustment</string>
+    <string name="fragment_user_details_password_validation">Validate</string>
+    <string name="fragment_user_details_new_password">New Password</string>
+    <string name="fragment_user_details_password">Password</string>
 </resources>

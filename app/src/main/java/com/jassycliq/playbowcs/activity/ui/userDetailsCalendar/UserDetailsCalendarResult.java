@@ -1,12 +1,12 @@
-package com.jassycliq.playbowcs.activity.ui.ownership;
+package com.jassycliq.playbowcs.activity.ui.userDetailsCalendar;
 
 import androidx.annotation.Nullable;
 
-public class OwnershipResult {
+public class UserDetailsCalendarResult {
     @Nullable
     private Throwable failure;
 
-    OwnershipResult(@Nullable Throwable failure) {
+    UserDetailsCalendarResult(@Nullable Throwable failure) {
         this.failure = failure;
     }
 

@@ -1,8 +1,9 @@
 package com.jassycliq.playbowcs.network;
 
 import com.google.gson.JsonObject;
-
+import com.jassycliq.playbowcs.activity.data.model.BookingResponse;
 import com.jassycliq.playbowcs.activity.data.model.LoggedInUser;
+import com.jassycliq.playbowcs.activity.data.model.OwnershipModel;
 import com.jassycliq.playbowcs.model.AddDepositModel;
 import com.jassycliq.playbowcs.model.BookingDetailsResponseModel;
 import com.jassycliq.playbowcs.model.BookingRateModel;
@@ -11,7 +12,6 @@ import com.jassycliq.playbowcs.model.ConfirmCancelModel;
 import com.jassycliq.playbowcs.model.DogBookingListModel;
 import com.jassycliq.playbowcs.model.LiveSessionModel;
 import com.jassycliq.playbowcs.model.LoginModel;
-import com.jassycliq.playbowcs.model.OwnershipModel;
 import com.jassycliq.playbowcs.model.PlayDateCheckoutModel;
 import com.jassycliq.playbowcs.model.SendPaymentNonceToServerModel;
 import com.jassycliq.playbowcs.model.SettingsModel;
@@ -19,10 +19,15 @@ import com.jassycliq.playbowcs.model.StepOneRegisterModel;
 import com.jassycliq.playbowcs.model.SuccessMessageModel;
 import com.jassycliq.playbowcs.model.TransactionHistoryModel;
 import com.jassycliq.playbowcs.model.UserDetailsModel;
+
+import java.util.Map;
+
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
+import retrofit2.http.FieldMap;
+import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.HTTP;
 import retrofit2.http.Header;
@@ -45,6 +50,18 @@ public interface ApiEndpointInterface {
     @POST("canine/{id}/get-users/")
     Call <OwnershipModel> getUsers(@Path(value = "id", encoded = false) int id,
                                    @Header("Authorization") String tokenString);
+
+    @FormUrlEncoded
+    @POST("canine/{id}/get-user-booked-dates/")
+    Call <BookingResponse> getUserBookedDates(@Path(value = "id", encoded = false) int id,
+                                              @Header("Authorization") String tokenString,
+                                              @FieldMap Map<String, String> fields);
+
+    @FormUrlEncoded
+    @POST("canine/{id}/update-user/")
+    Call <OwnershipModel> updateUser(@Path(value = "id", encoded = false) int id,
+                                     @Header("Authorization") String tokenString,
+                                     @FieldMap Map<String, String> fields);
 
 //    @POST("users/forgot-password/")
     @Multipart

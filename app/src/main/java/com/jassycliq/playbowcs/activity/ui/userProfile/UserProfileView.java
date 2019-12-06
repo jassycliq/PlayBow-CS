@@ -1,6 +1,6 @@
 package com.jassycliq.playbowcs.activity.ui.userProfile;
 
-import com.jassycliq.playbowcs.model.OwnershipModel;
+import com.jassycliq.playbowcs.activity.data.model.OwnershipModel;
 
 /**
  * Class exposing authenticated user details to the UI.

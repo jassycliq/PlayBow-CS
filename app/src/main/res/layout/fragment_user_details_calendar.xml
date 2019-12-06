@@ -5,7 +5,7 @@
     <data>
         <variable
             name="model"
-            type="com.jassycliq.playbowcs.model.OwnershipModel.UserProfile"/>
+            type="com.jassycliq.playbowcs.activity.data.model.OwnershipModel"/>
     </data>
 <androidx.constraintlayout.widget.ConstraintLayout
     android:layout_width="match_parent"
@@ -19,9 +19,10 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:mcv_selectionColor="@color/colorPrimaryLight"
-        app:mcv_showOtherDates="none"
-        app:mcv_selectionMode="multiple"/>
+        app:mcv_selectionColor="@color/colorCalendarSelector"
+        app:mcv_showOtherDates="decorated_disabled|out_of_range"
+        app:mcv_selectionMode="multiple"
+        />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

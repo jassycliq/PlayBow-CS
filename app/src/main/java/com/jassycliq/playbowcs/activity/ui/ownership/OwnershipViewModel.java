@@ -4,12 +4,14 @@ import android.app.Application;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.jassycliq.playbowcs.activity.data.model.LoggedInUser;
+import com.jassycliq.playbowcs.activity.data.model.OwnershipModel;
 import com.jassycliq.playbowcs.activity.ui.login.LoggedInUserView;
 import com.jassycliq.playbowcs.adapter.OwnershipAdapter;
-import com.jassycliq.playbowcs.model.OwnershipModel;
 import com.jassycliq.playbowcs.network.RetrofitCallback;
 import com.jassycliq.playbowcs.network.RetrofitClientInstance;
 
@@ -20,7 +22,10 @@ import java.util.List;
 import retrofit2.Call;
 
 public class OwnershipViewModel extends AndroidViewModel {
-    // TODO: Implement the ViewModel
+    private MutableLiveData<OwnershipResult> ownershipResult = new MutableLiveData<>();
+    LiveData<OwnershipResult> getOwnershipResult() {
+        return ownershipResult;
+    }
     private LoggedInUser.DataBean userDatabean = LoggedInUserView.getDatabean();
     private OwnershipAdapter mAdapter = new OwnershipAdapter(getApplication().getApplicationContext(), ALPHABETICAL_COMPARATOR);;
     private List<OwnershipModel.UserProfile> mModels;
@@ -32,6 +37,9 @@ public class OwnershipViewModel extends AndroidViewModel {
     }
 
     void getUsers(SwipeRefreshLayout swipeContainer) {
+        swipeContainer.setRefreshing(true);
+        swipeContainer.setAlpha((float) 0.20);
+
         int id = userDatabean.getUser_id();
         String tokenString = "Token " + userDatabean.getAuth_token();
         final Call<OwnershipModel> responseCall = RetrofitClientInstance.getInstance().getApiInterface().getUsers(id, tokenString);
@@ -45,7 +53,7 @@ public class OwnershipViewModel extends AndroidViewModel {
                         mModels = new ArrayList<>();
                         mModels.addAll(ownershipModel.getData().getUserProfile());
 
-                        mAdapter.add(mModels);
+                        mAdapter.replaceAll(mModels);
                     }
                 }
                 swipeContainer.setRefreshing(false);
@@ -54,6 +62,7 @@ public class OwnershipViewModel extends AndroidViewModel {
 
             @Override
             public void onFailure(@NonNull Call<OwnershipModel> call, @NonNull Throwable error) {
+                ownershipResult.setValue(new OwnershipResult(error));
                 error.printStackTrace();
             }
         });

@@ -9,7 +9,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 
 import com.jassycliq.playbowcs.R;
-import com.jassycliq.playbowcs.activity.ui.userDetails.UserDetailsCalendarFragment;
+import com.jassycliq.playbowcs.activity.ui.userDetailsCalendar.UserDetailsCalendarFragment;
 import com.jassycliq.playbowcs.activity.ui.userDetails.UserDetailsFragment;
 
 import org.jetbrains.annotations.NotNull;

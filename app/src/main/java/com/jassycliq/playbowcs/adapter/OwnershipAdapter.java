@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.jassycliq.playbowcs.UserProfile;
 import com.jassycliq.playbowcs.activity.ui.ownership.OwnershipFragment;
-import com.jassycliq.playbowcs.model.OwnershipModel;
+import com.jassycliq.playbowcs.activity.data.model.OwnershipModel;
 import com.jassycliq.playbowcs.utils.SafeSortedList;
 
 import java.util.Comparator;

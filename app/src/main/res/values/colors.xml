@@ -22,5 +22,9 @@
     <color name="colorHoloRedDark">@android:color/holo_red_dark</color>
     <color name="colorHoloGreenDark">@android:color/holo_green_dark</color>
     <color name="colorHoloGreenLight">@android:color/holo_green_light</color>
+
+    <color name="colorCalendarSelector">@color/colorAccent</color>
+    <color name="colorEvent">@color/colorPrimaryLight</color>
+
 </resources>
 

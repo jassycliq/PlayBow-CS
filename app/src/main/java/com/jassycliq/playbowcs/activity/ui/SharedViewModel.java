@@ -1,6 +1,4 @@
-package com.jassycliq.playbowcs.activity.ui.ownership;
-
-import android.util.Log;
+package com.jassycliq.playbowcs.activity.ui;
 
 import androidx.databinding.Observable;
 import androidx.databinding.PropertyChangeRegistry;
@@ -8,15 +6,17 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-import com.jassycliq.playbowcs.model.OwnershipModel;
+import com.jassycliq.playbowcs.activity.data.model.OwnershipModel;
+import com.jassycliq.playbowcs.activity.ui.userProfile.UserProfileView;
 
 public class SharedViewModel extends ViewModel implements Observable {
+    private UserProfileView userProfileView;
     private final MutableLiveData<OwnershipModel.UserProfile> selected = new MutableLiveData<OwnershipModel.UserProfile>();
     private PropertyChangeRegistry callbacks = new PropertyChangeRegistry();
 
     public void select(OwnershipModel.UserProfile userProfile) {
-        Log.e("liveData changed: ", String.valueOf(true));
         selected.setValue(userProfile);
+        userProfileView = new UserProfileView(userProfile);
     }
 
     public LiveData<OwnershipModel.UserProfile> getSelected() {

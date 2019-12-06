@@ -1,7 +1,9 @@
 package com.jassycliq.playbowcs.activity.ui.login;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.PixelFormat;
 import android.os.Bundle;
 import android.text.Editable;
@@ -17,6 +19,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.google.android.material.textfield.TextInputLayout;
+import com.google.gson.Gson;
 import com.jassycliq.playbowcs.R;
 import com.jassycliq.playbowcs.activity.data.model.LoggedInUser;
 import com.jassycliq.playbowcs.activity.ui.ownership.OwnershipActivity;
@@ -24,8 +27,12 @@ import com.jassycliq.playbowcs.network.RetrofitClientInstance;
 
 import java.util.Objects;
 
-public class LoginActivity extends AppCompatActivity {
+import static com.jassycliq.playbowcs.utils.Constants.DATABEAN;
+import static com.jassycliq.playbowcs.utils.Constants.FIRST_RUN;
+import static com.jassycliq.playbowcs.utils.Constants.SHARED_PREF;
 
+public class LoginActivity extends AppCompatActivity {
+    private SharedPreferences sharedPref;
     private LoginViewModel loginViewModel;
     public LoggedInUserView loggedInUserView;
 
@@ -34,6 +41,8 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         getWindow().setFormat(PixelFormat.RGBA_8888);
         setContentView(R.layout.activity_login);
+
+        sharedPref = getSharedPreferences(SHARED_PREF, Context.MODE_PRIVATE);
 
         new RetrofitClientInstance();
 
@@ -116,10 +125,23 @@ public class LoginActivity extends AppCompatActivity {
             loginViewModel.login(usernameEditText.getText().toString(),
                     passwordEditText.getText().toString());
         });
+
+        if (!sharedPref.getBoolean(FIRST_RUN, true)) {
+            Gson gson = new Gson();
+            String json = sharedPref.getString(DATABEAN, "");
+            LoggedInUser.DataBean dataBean = gson.fromJson(json, LoggedInUser.DataBean.class);
+            updateUiWithUser(dataBean);
+        }
     }
 
     private void updateUiWithUser(LoggedInUser.DataBean model) {
         loggedInUserView = new LoggedInUserView(model);
+        SharedPreferences.Editor prefsEditor = sharedPref.edit();
+        Gson gson = new Gson();
+        String json = gson.toJson(model);
+        prefsEditor.putString(DATABEAN, json);
+        prefsEditor.putBoolean(FIRST_RUN, false);
+        prefsEditor.apply();
         String welcome = getString(R.string.welcome) + " " + model.getFirstname() + " " + model.getLastname();
         Intent intent = new Intent(this, OwnershipActivity.class);
         startActivity(intent);

@@ -1,5 +1,7 @@
 package com.jassycliq.playbowcs.activity.ui.ownership;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -27,10 +29,15 @@ import com.jassycliq.playbowcs.activity.ui.SharedViewModel;
 
 import org.jetbrains.annotations.NotNull;
 
+import static com.jassycliq.playbowcs.utils.Constants.DATABEAN;
+import static com.jassycliq.playbowcs.utils.Constants.FIRST_RUN;
+import static com.jassycliq.playbowcs.utils.Constants.SHARED_PREF;
+
 public class OwnershipFragment extends Fragment {
     private SwipeRefreshLayout swipeContainer;
     private RecyclerView recyclerView;
     private UserProfile mBinding;
+    private SharedPreferences sharedPreferences;
     private static FragmentManager fragmentManager;
 
     private OwnershipViewModel ownershipViewModel;
@@ -54,6 +61,7 @@ public class OwnershipFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         recyclerView = view.findViewById(R.id.ownership_recycler_view);
         swipeContainer = view.findViewById(R.id.ownership_swipe_refresh);
+        sharedPreferences = requireActivity().getSharedPreferences(SHARED_PREF, Context.MODE_PRIVATE);
 
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(recyclerView.getContext()));
@@ -82,6 +90,11 @@ public class OwnershipFragment extends Fragment {
                 return;
             }
             if (ownershipResult.getFailure() != null) {
+                SharedPreferences.Editor prefsEditor = sharedPreferences.edit();
+                prefsEditor.putString(DATABEAN, null);
+                prefsEditor.putBoolean(FIRST_RUN, true);
+                prefsEditor.apply();
+
                 Navigation.findNavController(requireActivity(), R.id.container).navigate(R.id.action_homeFragment_to_loginActivity);
             }
         });

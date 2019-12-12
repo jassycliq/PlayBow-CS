@@ -1,13 +1,16 @@
 package com.jassycliq.playbowcs.activity.data;
 
+import org.jetbrains.annotations.NotNull;
+
 /**
  * A generic class that holds a result success w/ data or an error exception.
  */
 public class Result<T> {
     // hide the private constructor to limit subclass types (Success, Error)
-    private Result() {
+    public Result() {
     }
 
+    @NotNull
     @Override
     public String toString() {
         if (this instanceof Result.Success) {
@@ -18,6 +21,18 @@ public class Result<T> {
             return "Error[exception=" + error.getError().toString() + "]";
         }
         return "";
+    }
+
+    public Object getData() {
+        Object returnObject = null;
+        if (this instanceof  Result.Success) {
+            Result.Success success = (Result.Success) this;
+            returnObject = success.getData();
+        } else if (this instanceof  Result.Error) {
+            Result.Error error = (Result.Error) this;
+            returnObject = error.getError();
+        }
+        return returnObject;
     }
 
     // Success sub-class
@@ -35,13 +50,13 @@ public class Result<T> {
 
     // Error sub-class
     public final static class Error extends Result {
-        private Exception error;
+        private Throwable error;
 
-        public Error(Exception error) {
+        public Error(Throwable error) {
             this.error = error;
         }
 
-        public Exception getError() {
+        public Throwable getError() {
             return this.error;
         }
     }

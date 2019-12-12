@@ -11,11 +11,12 @@ import androidx.annotation.NonNull;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
+import androidx.navigation.Navigation;
 
 import com.jassycliq.playbowcs.R;
+import com.jassycliq.playbowcs.activity.data.model.OwnershipModel;
 import com.jassycliq.playbowcs.activity.ui.SharedViewModel;
 import com.jassycliq.playbowcs.databinding.FragmentUserDetailsBinding;
-import com.jassycliq.playbowcs.activity.data.model.OwnershipModel;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -137,7 +138,7 @@ public class UserDetailsFragment extends Fragment {
                 chipState = "True";
             }
             userDetailsViewModel.setUserInfo(firstName, lastName, passWord, chipState, postalAddress, accountBalanceAdjustment);
-            requireActivity().getSupportFragmentManager().popBackStack();
+            Navigation.findNavController(v).navigate(R.id.action_userProfileFragment_to_homeFragment);
         });
     }
 }

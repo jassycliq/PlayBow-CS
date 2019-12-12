@@ -1,6 +1,5 @@
 package com.jassycliq.playbowcs.activity.ui.ownership;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -15,8 +14,8 @@ import androidx.appcompat.widget.SearchView;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProviders;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
@@ -25,9 +24,6 @@ import com.jassycliq.playbowcs.R;
 import com.jassycliq.playbowcs.UserProfile;
 import com.jassycliq.playbowcs.activity.data.model.OwnershipModel;
 import com.jassycliq.playbowcs.activity.ui.SharedViewModel;
-import com.jassycliq.playbowcs.activity.ui.login.LoginActivity;
-import com.jassycliq.playbowcs.activity.ui.userProfile.UserProfileFragment;
-import com.jassycliq.playbowcs.utils.StartActivityInterface;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -49,15 +45,15 @@ public class OwnershipFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         setHasOptionsMenu(true);
-        mBinding = DataBindingUtil.inflate(inflater, R.layout.recycler_view_items, container, false);
+        mBinding = DataBindingUtil.inflate(inflater, R.layout.recycler_view_ownership_items, container, false);
         return inflater.inflate(R.layout.fragment_ownership, container, false);
     }
 
     @Override
     public void onViewCreated(@NotNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        recyclerView = view.findViewById(R.id.home_activity_recycler_view);
-        swipeContainer = view.findViewById(R.id.home_activity_swipe_refresh);
+        recyclerView = view.findViewById(R.id.ownership_recycler_view);
+        swipeContainer = view.findViewById(R.id.ownership_swipe_refresh);
 
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(recyclerView.getContext()));
@@ -86,8 +82,7 @@ public class OwnershipFragment extends Fragment {
                 return;
             }
             if (ownershipResult.getFailure() != null) {
-                Intent intent = new Intent(OwnershipFragment.this.requireActivity(), LoginActivity.class);
-                ((StartActivityInterface) OwnershipFragment.this.requireActivity()).startMyIntent(intent);
+                Navigation.findNavController(requireActivity(), R.id.container).navigate(R.id.action_homeFragment_to_loginActivity);
             }
         });
 
@@ -137,12 +132,9 @@ public class OwnershipFragment extends Fragment {
             mBinding.setModel(item);
             mBinding.homeActivityOnClickView.setOnClickListener(v -> {
                 sharedViewModel.select(item);
-                UserProfileFragment userProfileFragment = new UserProfileFragment();
-                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                fragmentTransaction.replace(R.id.container, userProfileFragment);
-                fragmentTransaction.addToBackStack(null);
-                fragmentTransaction.commit();
+                Navigation.findNavController(v).navigate(R.id.action_homeFragment_to_userProfileFragment);
             });
+            mBinding.executePendingBindings();
         }
     }
 }

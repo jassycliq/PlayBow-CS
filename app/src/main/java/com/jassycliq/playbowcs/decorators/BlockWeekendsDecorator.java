@@ -1,4 +1,4 @@
-package com.jassycliq.playbowcs.activity.ui.userDetailsCalendar;
+package com.jassycliq.playbowcs.decorators;
 
 import com.prolificinteractive.materialcalendarview.CalendarDay;
 import com.prolificinteractive.materialcalendarview.DayViewDecorator;

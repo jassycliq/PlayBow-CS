@@ -11,19 +11,20 @@
             name="imageUrl"
             type="String" />
     </data>
+
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        >
+        android:fillViewport="true"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/fragment_user_detail_constraint"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            >
+            android:layout_height="match_parent">
 
             <ImageView
-                android:id="@+id/imageView"
+                android:id="@+id/user_details_image_view"
                 android:layout_width="96dp"
                 android:layout_height="96dp"
                 android:layout_marginStart="16dp"
@@ -32,8 +33,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintWidth_percent=".30"
-                tools:srcCompat="@tools:sample/avatars"
-                />
+                tools:srcCompat="@tools:sample/avatars" />
 
             <TextView
                 android:id="@+id/first_name_text_view"
@@ -44,10 +44,9 @@
                 android:text="@string/fragment_user_details_first_name"
                 android:textSize="16sp"
                 android:textStyle="bold"
-                app:layout_constraintStart_toEndOf="@id/imageView"
+                app:layout_constraintStart_toEndOf="@id/user_details_image_view"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintWidth_percent=".30"
-                />
+                app:layout_constraintWidth_percent=".30" />
 
             <TextView
                 android:id="@+id/last_name_text_view"
@@ -60,58 +59,53 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@id/first_name_text_view"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintWidth_percent=".30"
-                />
+                app:layout_constraintWidth_percent=".30" />
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/first_name_edit_text_layout"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
-                app:layout_constraintStart_toEndOf="@id/imageView"
-                app:layout_constraintTop_toBottomOf="@id/first_name_text_view"
-                app:layout_constraintWidth_percent=".30"
                 app:errorEnabled="true"
                 app:hintTextAppearance="@style/MyHintText"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                >
+                app:layout_constraintStart_toEndOf="@id/user_details_image_view"
+                app:layout_constraintTop_toBottomOf="@id/first_name_text_view"
+                app:layout_constraintWidth_percent=".30">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/first_name_edit_text"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:hint="@{model.userFirstName}"
+                    android:imeOptions="actionDone"
                     android:inputType="text"
                     android:maxLines="1"
-                    android:hint="@{model.userFirstName}"
-                    android:theme="@style/MyEditText"
-                    android:imeOptions="actionDone"
-                    />
+                    android:theme="@style/MyEditText" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/last_name_edit_text_layout"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:paddingEnd="8dp"
+                app:errorEnabled="true"
+                app:hintTextAppearance="@style/MyHintText"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@id/first_name_edit_text_layout"
                 app:layout_constraintTop_toBottomOf="@id/last_name_text_view"
-                app:layout_constraintWidth_percent=".30"
-                app:errorEnabled="true"
-                app:hintTextAppearance="@style/MyHintText"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                >
+                app:layout_constraintWidth_percent=".30">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/last_name_edit_text"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:hint="@{model.userLastName}"
+                    android:imeOptions="actionDone"
                     android:inputType="text"
                     android:maxLines="1"
-                    android:hint="@{model.userLastName}"
-                    android:theme="@style/MyEditText"
-                    android:imeOptions="actionDone"
-                    />
+                    android:theme="@style/MyEditText" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <TextView
@@ -124,7 +118,7 @@
                 android:textSize="16sp"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@id/imageView"
+                app:layout_constraintStart_toEndOf="@id/user_details_image_view"
                 app:layout_constraintTop_toBottomOf="@id/first_name_edit_text_layout" />
 
             <TextView
@@ -133,28 +127,27 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
-                android:textSize="18sp"
                 android:hint="@{model.username}"
+                android:textSize="18sp"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@id/imageView"
-                app:layout_constraintTop_toBottomOf="@id/email_text_view"
-                >
+                app:layout_constraintStart_toEndOf="@id/user_details_image_view"
+                app:layout_constraintTop_toBottomOf="@id/email_text_view">
 
-<!--                <com.google.android.material.textfield.TextInputEditText-->
-<!--                    android:id="@+id/editTextTextEmailAddress"-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:layout_height="match_parent"-->
-<!--                    android:ems="10"-->
-<!--                    android:maxLines="1"-->
-<!--                    android:hint="@{model.username}"-->
-<!--                    android:inputType="textEmailAddress"-->
-<!--                    android:imeOptions="actionDone"-->
-<!--                    app:layout_constraintEnd_toEndOf="parent"-->
-<!--                    app:layout_constraintStart_toEndOf="@id/imageView"-->
-<!--                    app:layout_constraintTop_toBottomOf="@id/email_text_view"-->
-<!--                    android:importantForAutofill="no"-->
-<!--                    android:theme="@style/MyEditText"-->
-<!--                    />-->
+                <!--                <com.google.android.material.textfield.TextInputEditText-->
+                <!--                    android:id="@+id/editTextTextEmailAddress"-->
+                <!--                    android:layout_width="match_parent"-->
+                <!--                    android:layout_height="match_parent"-->
+                <!--                    android:ems="10"-->
+                <!--                    android:maxLines="1"-->
+                <!--                    android:hint="@{model.username}"-->
+                <!--                    android:inputType="textEmailAddress"-->
+                <!--                    android:imeOptions="actionDone"-->
+                <!--                    app:layout_constraintEnd_toEndOf="parent"-->
+                <!--                    app:layout_constraintStart_toEndOf="@id/imageView"-->
+                <!--                    app:layout_constraintTop_toBottomOf="@id/email_text_view"-->
+                <!--                    android:importantForAutofill="no"-->
+                <!--                    android:theme="@style/MyEditText"-->
+                <!--                    />-->
             </TextView>
 
             <TextView
@@ -169,11 +162,11 @@
                 app:layout_constraintBottom_toTopOf="@id/new_password_input_layout"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/editTextTextEmailAddress_layout"
-                />
+                app:layout_constraintTop_toBottomOf="@id/editTextTextEmailAddress_layout" />
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/new_password_input_layout"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
@@ -181,24 +174,23 @@
                 android:hint="@string/fragment_user_details_new_password"
                 app:endIconMode="password_toggle"
                 app:errorEnabled="true"
+                app:hintTextAppearance="@style/MyHintText"
                 app:layout_constraintEnd_toStartOf="@id/new_password_validation_input_layout"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/new_password_textview"
-                app:hintTextAppearance="@style/MyHintText"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                >
+                app:layout_constraintTop_toBottomOf="@id/new_password_textview">
 
                 <EditText
                     android:id="@+id/new_password"
-                    android:inputType="textPassword"
-                    android:layout_height="wrap_content"
                     android:layout_width="match_parent"
-                    android:theme="@style/MyEditText"
-                    android:importantForAutofill="no" />
+                    android:layout_height="wrap_content"
+                    android:importantForAutofill="no"
+                    android:inputType="textPassword"
+                    android:theme="@style/MyEditText" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/new_password_validation_input_layout"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
@@ -206,20 +198,18 @@
                 android:hint="@string/fragment_user_details_password_validation"
                 app:endIconMode="password_toggle"
                 app:errorEnabled="true"
+                app:hintTextAppearance="@style/MyHintText"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@id/new_password_input_layout"
-                app:layout_constraintTop_toBottomOf="@id/new_password_textview"
-                app:hintTextAppearance="@style/MyHintText"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                >
+                app:layout_constraintTop_toBottomOf="@id/new_password_textview">
 
                 <EditText
                     android:id="@+id/new_password_validation"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:importantForAutofill="no"
                     android:inputType="textPassword"
-                    android:theme="@style/MyEditText"
-                    android:importantForAutofill="no" />
+                    android:theme="@style/MyEditText" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <TextView
@@ -278,8 +268,7 @@
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/chip_group"
-                />
+                app:layout_constraintTop_toBottomOf="@id/chip_group" />
 
             <EditText
                 android:id="@+id/editTextTextPostalAddress"
@@ -294,8 +283,7 @@
                 android:inputType="textPostalAddress"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/address_text_view"
-                />
+                app:layout_constraintTop_toBottomOf="@id/address_text_view" />
 
             <TextView
                 android:id="@+id/account_balance_text_view"
@@ -310,8 +298,7 @@
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/editTextTextPostalAddress"
-                />
+                app:layout_constraintTop_toBottomOf="@id/editTextTextPostalAddress" />
 
             <TextView
                 android:id="@+id/account_balance_summary_text_view"
@@ -324,8 +311,7 @@
                 app:balanceText="@{model}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/account_balance_text_view"
-                />
+                app:layout_constraintTop_toBottomOf="@id/account_balance_text_view" />
 
             <TextView
                 android:id="@+id/adjustment_amount_textview"
@@ -339,8 +325,7 @@
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/account_balance_summary_text_view"
-                />
+                app:layout_constraintTop_toBottomOf="@id/account_balance_summary_text_view" />
 
             <EditText
                 android:id="@+id/account_balance_editTextNumberDecimal"
@@ -355,49 +340,47 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/adjustment_amount_textview" />
 
-<!--            <ImageButton-->
-<!--                android:id="@+id/add_balance_button"-->
-<!--                android:layout_width="0dp"-->
-<!--                android:layout_height="48dp"-->
-<!--                android:layout_marginEnd="16dp"-->
-<!--                android:background="@android:color/transparent"-->
-<!--                android:clickable="true"-->
-<!--                android:onClick="@{() -> handlers.setAdjustmentPositiveColor()}"-->
-<!--                android:scaleType="centerInside"-->
-<!--                android:src="@drawable/ic_add_circle_24px"-->
-<!--                android:tint="@color/onSurface"-->
-<!--                app:layout_constraintEnd_toEndOf="parent"-->
-<!--                app:layout_constraintStart_toEndOf="@+id/account_balance_editTextNumberDecimal"-->
-<!--                app:layout_constraintTop_toBottomOf="@id/adjustment_amount_textview"-->
-<!--                />-->
+            <!--            <ImageButton-->
+            <!--                android:id="@+id/add_balance_button"-->
+            <!--                android:layout_width="0dp"-->
+            <!--                android:layout_height="48dp"-->
+            <!--                android:layout_marginEnd="16dp"-->
+            <!--                android:background="@android:color/transparent"-->
+            <!--                android:clickable="true"-->
+            <!--                android:onClick="@{() -> handlers.setAdjustmentPositiveColor()}"-->
+            <!--                android:scaleType="centerInside"-->
+            <!--                android:src="@drawable/ic_add_circle_24px"-->
+            <!--                android:tint="@color/onSurface"-->
+            <!--                app:layout_constraintEnd_toEndOf="parent"-->
+            <!--                app:layout_constraintStart_toEndOf="@+id/account_balance_editTextNumberDecimal"-->
+            <!--                app:layout_constraintTop_toBottomOf="@id/adjustment_amount_textview"-->
+            <!--                />-->
 
-<!--            <ImageButton-->
-<!--                android:id="@+id/subtract_balance_button"-->
-<!--                android:layout_width="0dp"-->
-<!--                android:layout_height="48dp"-->
-<!--                android:layout_marginStart="16dp"-->
-<!--                android:background="@android:color/transparent"-->
-<!--                android:clickable="true"-->
-<!--                android:onClick="@{() -> handlers.setAdjustmentNegativeColor()}"-->
-<!--                android:scaleType="centerInside"-->
-<!--                android:src="@drawable/ic_remove_circle_24px"-->
-<!--                android:tint="@color/onSurface"-->
-<!--                app:layout_constraintEnd_toStartOf="@+id/account_balance_editTextNumberDecimal"-->
-<!--                app:layout_constraintStart_toStartOf="parent"-->
-<!--                app:layout_constraintTop_toBottomOf="@id/adjustment_amount_textview"-->
-<!--                />-->
+            <!--            <ImageButton-->
+            <!--                android:id="@+id/subtract_balance_button"-->
+            <!--                android:layout_width="0dp"-->
+            <!--                android:layout_height="48dp"-->
+            <!--                android:layout_marginStart="16dp"-->
+            <!--                android:background="@android:color/transparent"-->
+            <!--                android:clickable="true"-->
+            <!--                android:onClick="@{() -> handlers.setAdjustmentNegativeColor()}"-->
+            <!--                android:scaleType="centerInside"-->
+            <!--                android:src="@drawable/ic_remove_circle_24px"-->
+            <!--                android:tint="@color/onSurface"-->
+            <!--                app:layout_constraintEnd_toStartOf="@+id/account_balance_editTextNumberDecimal"-->
+            <!--                app:layout_constraintStart_toStartOf="parent"-->
+            <!--                app:layout_constraintTop_toBottomOf="@id/adjustment_amount_textview"-->
+            <!--                />-->
 
             <com.google.android.material.floatingactionbutton.FloatingActionButton
                 android:id="@+id/floatingActionButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
                 android:layout_marginEnd="16dp"
                 android:layout_marginBottom="16dp"
                 android:clickable="true"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/account_balance_editTextNumberDecimal"
                 app:srcCompat="@drawable/ic_save_24px" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>

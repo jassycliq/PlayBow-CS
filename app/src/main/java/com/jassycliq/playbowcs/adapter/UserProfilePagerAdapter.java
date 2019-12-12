@@ -9,8 +9,8 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 
 import com.jassycliq.playbowcs.R;
-import com.jassycliq.playbowcs.activity.ui.userDetailsCalendar.UserDetailsCalendarFragment;
 import com.jassycliq.playbowcs.activity.ui.userDetails.UserDetailsFragment;
+import com.jassycliq.playbowcs.activity.ui.userDetailsCalendar.UserDetailsCalendarFragment;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -18,13 +18,13 @@ import org.jetbrains.annotations.NotNull;
  * A [FragmentPagerAdapter] that returns a fragment corresponding to
  * one of the sections/tabs/pages.
  */
-public class SectionsPagerAdapter extends FragmentPagerAdapter {
+public class UserProfilePagerAdapter extends FragmentPagerAdapter {
 
     @StringRes
     private static final int[] TAB_TITLES = new int[]{R.string.tab_text_1, R.string.tab_text_2};
     private final Context mContext;
 
-    public SectionsPagerAdapter(Context context, FragmentManager fm) {
+    public UserProfilePagerAdapter(Context context, FragmentManager fm) {
         super(fm, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
         mContext = context;
     }

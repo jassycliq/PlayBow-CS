@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:bind="http://schemas.android.com/apk/res-auto" >
+
+  <data class="com.jassycliq.playbowcs.UserProfile">
+    <variable
+        name="model"
+        type="com.jassycliq.playbowcs.activity.data.model.OwnershipModel.UserProfile"/>
+    <variable
+        name="imageUrl"
+        type="String" />
+  </data>
+
+  <com.google.android.material.card.MaterialCardView
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginHorizontal="8dp"
+      android:layout_marginBottom="12dp"
+      android:visibility="visible"
+      bind:cardBackgroundColor="@color/colorSurface"
+      bind:cardCornerRadius="8dp"
+      bind:cardElevation="4dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/home_activity_recycler_linear_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginVertical="4dp">
+
+      <LinearLayout
+          android:id="@+id/home_activity_on_click_view"
+          android:layout_width="0dp"
+          android:layout_height="0dp"
+          android:orientation="horizontal"
+          bind:layout_constraintBottom_toBottomOf="@id/home_activity_recycler_ownership"
+          bind:layout_constraintEnd_toEndOf="@id/home_activity_recycler_ownership"
+          bind:layout_constraintStart_toStartOf="@id/home_activity_recycler_dog_image"
+          bind:layout_constraintTop_toTopOf="@id/home_activity_recycler_dog_image"
+          tools:visibility="invisible" />
+
+      <ImageView
+          android:id="@+id/home_activity_recycler_dog_image"
+          android:layout_width="0dp"
+          android:layout_height="72dp"
+          android:contentDescription="@string/recycler_dog_image_desc"
+          android:padding="8dp"
+          bind:imgUrl="@{model.dogOwnership.dogs.size() > 0 ? model.dogOwnership.dogs.get(0).dogPhoto : @string/no_dog_image}"
+          bind:layout_constraintBottom_toBottomOf="parent"
+          bind:layout_constraintStart_toStartOf="parent"
+          bind:layout_constraintTop_toTopOf="parent"
+          bind:layout_constraintWidth_percent=".25"
+          tools:srcCompat="@tools:sample/avatars" />
+
+
+      <TextView
+          android:id="@+id/home_activity_recycler_full_name"
+          android:layout_width="0dp"
+          android:layout_height="0dp"
+          android:text="@{model.userFirstName + ' ' + model.userLastName}"
+          android:textAppearance="@style/PrimaryTextList"
+          android:textStyle="bold"
+          bind:layout_constraintBottom_toTopOf="@id/home_activity_recycler_user"
+          bind:layout_constraintEnd_toStartOf="@id/home_activity_recycler_options"
+          bind:layout_constraintStart_toEndOf="@id/home_activity_recycler_dog_image"
+          bind:layout_constraintTop_toTopOf="parent"
+          tools:text="@tools:sample/full_names" />
+
+      <TextView
+          android:id="@+id/home_activity_recycler_user"
+          android:layout_width="0dp"
+          android:layout_height="0dp"
+          android:text="@{model.username}"
+          android:textAppearance="@style/SecondaryTextList"
+          bind:layout_constraintBottom_toTopOf="@id/home_activity_recycler_ownership"
+          bind:layout_constraintEnd_toStartOf="@id/home_activity_recycler_options"
+          bind:layout_constraintStart_toEndOf="@id/home_activity_recycler_dog_image"
+          bind:layout_constraintTop_toBottomOf="@id/home_activity_recycler_full_name"
+          tools:text="@tools:sample/date/ddmmyy" />
+
+      <TextView
+          android:id="@+id/home_activity_recycler_ownership"
+          android:layout_width="0dp"
+          android:layout_height="0dp"
+          android:textAppearance="@style/SecondaryTextList"
+          bind:dogNameText="@{model}"
+          bind:layout_constraintBottom_toBottomOf="parent"
+          bind:layout_constraintEnd_toStartOf="@id/home_activity_recycler_options"
+          bind:layout_constraintStart_toEndOf="@id/home_activity_recycler_dog_image"
+          bind:layout_constraintTop_toBottomOf="@id/home_activity_recycler_user"
+          tools:text="@tools:sample/lorem" />
+
+
+      <TextView
+          android:id="@+id/home_activity_recycler_options"
+          android:layout_width="0dp"
+          android:layout_height="0dp"
+          android:padding="16dp"
+          android:text="@string/home_activity_recycler_options"
+          android:textAlignment="viewEnd"
+          android:textAppearance="?android:textAppearanceLarge"
+          android:textColor="@color/onSurface"
+          android:visibility="visible"
+          bind:layout_constraintBottom_toBottomOf="parent"
+          bind:layout_constraintEnd_toEndOf="parent"
+          bind:layout_constraintTop_toTopOf="parent"
+          bind:layout_constraintWidth_percent=".10"
+          tools:viewBindingIgnore="true" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+  </com.google.android.material.card.MaterialCardView>
+</layout>

@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/homeFragment">
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.jassycliq.playbowcs.activity.ui.home.HomeFragment"
+        android:label="HomeFragment" >
+        <action
+            android:id="@+id/action_homeFragment_to_loginActivity"
+            app:destination="@id/loginActivity"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim"
+            app:launchSingleTop="true" />
+        <action
+            android:id="@+id/action_homeFragment_to_userProfileFragment"
+            app:destination="@id/userProfileFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popUpTo="@id/homeFragment"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim"
+            app:launchSingleTop="true" />
+    </fragment>
+    <fragment
+        android:id="@+id/ownershipFragment"
+        android:name="com.jassycliq.playbowcs.activity.ui.ownership.OwnershipFragment"
+        android:label="fragment_ownership"
+        tools:layout="@layout/fragment_ownership" />
+    <fragment
+        android:id="@+id/dayCareCalendarFragment"
+        android:name="com.jassycliq.playbowcs.activity.ui.daycareCalendar.DaycareCalendarFragment"
+        android:label="DayCareCalendarFragment" />
+    <fragment
+        android:id="@+id/userProfileFragment"
+        android:name="com.jassycliq.playbowcs.activity.ui.userProfile.UserProfileFragment"
+        android:label="UserProfileFragment" >
+        <action
+            android:id="@+id/action_userProfileFragment_to_homeFragment"
+            app:destination="@id/homeFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:launchSingleTop="true"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim"
+            app:popUpTo="@id/homeFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/userDetailsFragment"
+        android:name="com.jassycliq.playbowcs.activity.ui.userDetails.UserDetailsFragment"
+        android:label="UserDetailsFragment" />
+    <fragment
+        android:id="@+id/userDetailsCalendarFragment"
+        android:name="com.jassycliq.playbowcs.activity.ui.userDetailsCalendar.UserDetailsCalendarFragment"
+        android:label="UserDetailsCalendarFragment" />
+    <activity
+        android:id="@+id/loginActivity"
+        android:name="com.jassycliq.playbowcs.activity.ui.login.LoginActivity"
+        android:label="activity_login"
+        tools:layout="@layout/activity_login" />
+</navigation>

@@ -1,4 +1,4 @@
-package com.jassycliq.playbowcs.activity.ui.userProfile;
+package com.jassycliq.playbowcs.activity.ui.home;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -9,33 +9,23 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProviders;
 import androidx.viewpager.widget.ViewPager;
 
 import com.google.android.material.tabs.TabLayout;
 import com.jassycliq.playbowcs.R;
-import com.jassycliq.playbowcs.activity.data.model.OwnershipModel;
-import com.jassycliq.playbowcs.activity.ui.SharedViewModel;
-import com.jassycliq.playbowcs.adapter.UserProfilePagerAdapter;
-import com.jassycliq.playbowcs.databinding.FragmentUserProfileBinding;
+import com.jassycliq.playbowcs.activity.ui.userProfile.ZoomOutPageTransformer;
+import com.jassycliq.playbowcs.adapter.HomePageAdapter;
+import com.jassycliq.playbowcs.databinding.FragmentHomeBinding;
 
 import org.jetbrains.annotations.NotNull;
 
-public class UserProfileFragment extends Fragment {
-
-    private UserProfileViewModel mViewModel;
-    private SharedViewModel sharedViewModel;
-    private OwnershipModel.UserProfile userProfile;
-    private FragmentUserProfileBinding mBinding;
-
-    public static UserProfileFragment newInstance() {
-        return new UserProfileFragment();
-    }
+public class HomeFragment extends Fragment {
+    private FragmentHomeBinding mBinding;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        mBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_user_profile, container, false);
+        mBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_home, container, false);
         mBinding.setLifecycleOwner(this);
         return mBinding.getRoot();
     }
@@ -49,17 +39,13 @@ public class UserProfileFragment extends Fragment {
     @Override
     public void onViewCreated(@NotNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        mViewModel = ViewModelProviders.of(this).get(UserProfileViewModel.class);
-        sharedViewModel = ViewModelProviders.of(requireActivity()).get(SharedViewModel.class);
-        UserProfilePagerAdapter userProfilePagerAdapter = new UserProfilePagerAdapter(requireContext(), this.getChildFragmentManager());
-        ViewPager viewPager = view.findViewById(R.id.view_pager);
-        viewPager.setAdapter(userProfilePagerAdapter);
-        viewPager.setPageTransformer(true, new ZoomOutPageTransformer());
-        TabLayout tabs = view.findViewById(R.id.tabs);
-        tabs.setupWithViewPager(viewPager);
 
-        userProfile = sharedViewModel.getSelected().getValue();
-        mBinding.setModel(userProfile);
+        HomePageAdapter homePageAdapter = new HomePageAdapter(requireContext(), this.getChildFragmentManager());
+        ViewPager viewPager = view.findViewById(R.id.home_view_pager);
+        viewPager.setAdapter(homePageAdapter);
+        viewPager.setPageTransformer(true, new ZoomOutPageTransformer());
+        TabLayout tabs = view.findViewById(R.id.home_tabs);
+        tabs.setupWithViewPager(viewPager);
 
         // TODO: Eventually transition to a single FAB for both fragments instead of a FAB for each fragment
 //        mBinding.floatingActionButton3.setOnClickListener(new View.OnClickListener() {

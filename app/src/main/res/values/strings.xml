@@ -21,6 +21,8 @@
     <string name="title_activity_individual_user">IndividualUserActivity</string>
     <string name="tab_text_1">User Details</string>
     <string name="tab_text_2">Calendar</string>
+    <string name="home_tab_text_1">Clients</string>
+    <string name="home_tab_text_2">Daycare Calendar</string>
     <string name="title_activity_main">MainActivity</string>
     <string name="fragment_user_details_first_name">First Name</string>
     <string name="fragment_user_details_last_name">Last Name</string>
@@ -35,4 +37,5 @@
     <string name="fragment_user_details_password_validation">Validate</string>
     <string name="fragment_user_details_new_password">New Password</string>
     <string name="fragment_user_details_password">Password</string>
+    <string name="fragment_daycare_calendar_textview">"Dogs coming in: %1$d</string>
 </resources>

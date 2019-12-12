@@ -4,10 +4,16 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
-    <FrameLayout
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".activity.ui.ownership.OwnershipActivity"
+    >
+    <fragment
         android:id="@+id/container"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-    </FrameLayout>
+        android:layout_height="match_parent"
+        android:name="androidx.navigation.fragment.NavHostFragment"
+        app:defaultNavHost="true"
+        app:navGraph="@navigation/ownership_navigation"
+        >
+    </fragment>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

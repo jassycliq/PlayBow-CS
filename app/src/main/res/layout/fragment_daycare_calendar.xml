@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <data>
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.prolificinteractive.materialcalendarview.MaterialCalendarView
+            android:id="@+id/fragment_daycare_calendar_calendarView"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:mcv_calendarMode="week"
+            app:mcv_selectionColor="@color/colorCalendarSelector"
+            app:mcv_selectionMode="single"
+            app:mcv_showOtherDates="decorated_disabled|out_of_range" />
+
+        <TextView
+            android:id="@+id/fragment_daycare_calendar_textview"
+            android:layout_width="0dp"
+            android:layout_height="72dp"
+            android:gravity="center_horizontal|center_vertical"
+            android:textAppearance="@style/PrimaryText"
+            app:layout_constraintBottom_toTopOf="@id/fragment_daycare_calendar_swipe_refresh"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/fragment_daycare_calendar_calendarView" />
+
+        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+            android:id="@+id/fragment_daycare_calendar_swipe_refresh"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/fragment_daycare_calendar_textview">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/fragment_daycare_calendar_recycler_view"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

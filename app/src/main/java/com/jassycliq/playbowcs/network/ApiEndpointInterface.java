@@ -1,7 +1,10 @@
 package com.jassycliq.playbowcs.network;
 
 import com.google.gson.JsonObject;
+import com.jassycliq.playbowcs.activity.data.Result;
+import com.jassycliq.playbowcs.activity.data.model.BookingData;
 import com.jassycliq.playbowcs.activity.data.model.BookingResponse;
+import com.jassycliq.playbowcs.activity.data.model.DaycareCalendarResponse;
 import com.jassycliq.playbowcs.activity.data.model.LoggedInUser;
 import com.jassycliq.playbowcs.activity.data.model.OwnershipModel;
 import com.jassycliq.playbowcs.model.AddDepositModel;
@@ -56,6 +59,24 @@ public interface ApiEndpointInterface {
     Call <BookingResponse> getUserBookedDates(@Path(value = "id", encoded = false) int id,
                                               @Header("Authorization") String tokenString,
                                               @FieldMap Map<String, String> fields);
+
+    @FormUrlEncoded
+    @POST("canine/{id}/get-user-booked-dates/")
+    Call <Result<BookingData>> setAdminBookedDates(@Path(value = "id", encoded = false) int id,
+                                                @Header("Authorization") String tokenString,
+                                                @FieldMap Map<String, String> fields);
+
+    @FormUrlEncoded
+    @POST("canine/{id}/get-user-booked-dates/")
+    Call <Result<BookingData>> setAdminRemovedDates(@Path(value = "id", encoded = false) int id,
+                                                    @Header("Authorization") String tokenString,
+                                                    @FieldMap Map<String, String> fields);
+
+    @FormUrlEncoded
+    @POST("canine/{id}/get-dog-attendance/")
+    Call <DaycareCalendarResponse> getDaycareAttendance(@Path(value = "id", encoded = false) int id,
+                                                        @Header("Authorization") String tokenString,
+                                                        @FieldMap Map<String, String> fields);
 
     @FormUrlEncoded
     @POST("canine/{id}/update-user/")

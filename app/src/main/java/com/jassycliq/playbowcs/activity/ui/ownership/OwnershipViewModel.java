@@ -27,7 +27,7 @@ public class OwnershipViewModel extends AndroidViewModel {
         return ownershipResult;
     }
     private LoggedInUser.DataBean userDatabean = LoggedInUserView.getDatabean();
-    private OwnershipAdapter mAdapter = new OwnershipAdapter(getApplication().getApplicationContext(), ALPHABETICAL_COMPARATOR);;
+    private OwnershipAdapter mAdapter = new OwnershipAdapter(getApplication().getApplicationContext(), ALPHABETICAL_COMPARATOR);
     private List<OwnershipModel.UserProfile> mModels;
 
     private static final Comparator<OwnershipModel.UserProfile> ALPHABETICAL_COMPARATOR = (a, b) -> a.getUserID().compareTo(b.getUserID());

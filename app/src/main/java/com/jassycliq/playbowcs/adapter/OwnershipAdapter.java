@@ -8,8 +8,8 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.jassycliq.playbowcs.UserProfile;
-import com.jassycliq.playbowcs.activity.ui.ownership.OwnershipFragment;
 import com.jassycliq.playbowcs.activity.data.model.OwnershipModel;
+import com.jassycliq.playbowcs.activity.ui.ownership.OwnershipFragment;
 import com.jassycliq.playbowcs.utils.SafeSortedList;
 
 import java.util.Comparator;
@@ -88,25 +88,25 @@ public class OwnershipAdapter extends RecyclerView.Adapter<OwnershipFragment.Use
         return mSortedList.size();
     }
 
-        public void add(OwnershipModel.UserProfile model) {
-            mSortedList.add(model);
-        }
+    public void add(OwnershipModel.UserProfile model) {
+        mSortedList.add(model);
+    }
 
-        public void remove(OwnershipModel.UserProfile model) {
-            mSortedList.remove(model);
-        }
+    public void remove(OwnershipModel.UserProfile model) {
+        mSortedList.remove(model);
+    }
 
     public void add(List<OwnershipModel.UserProfile> models) {
         mSortedList.addAll(models);
     }
 
-        public void remove(List<OwnershipModel.UserProfile> models) {
-            mSortedList.beginBatchedUpdates();
-            for (OwnershipModel.UserProfile model : models) {
-                mSortedList.remove(model);
-            }
-            mSortedList.endBatchedUpdates();
+    public void remove(List<OwnershipModel.UserProfile> models) {
+        mSortedList.beginBatchedUpdates();
+        for (OwnershipModel.UserProfile model : models) {
+            mSortedList.remove(model);
         }
+        mSortedList.endBatchedUpdates();
+    }
 
     public void replaceAll(List<OwnershipModel.UserProfile> models) {
         mSortedList.beginBatchedUpdates();

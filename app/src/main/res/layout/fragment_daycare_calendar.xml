@@ -23,7 +23,7 @@
         <TextView
             android:id="@+id/fragment_daycare_calendar_textview"
             android:layout_width="0dp"
-            android:layout_height="72dp"
+            android:layout_height="wrap_content"
             android:gravity="center_horizontal|center_vertical"
             android:textAppearance="@style/PrimaryText"
             app:layout_constraintBottom_toTopOf="@id/fragment_daycare_calendar_swipe_refresh"

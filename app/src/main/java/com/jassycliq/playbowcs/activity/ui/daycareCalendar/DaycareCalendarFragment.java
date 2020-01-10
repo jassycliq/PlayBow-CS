@@ -84,7 +84,7 @@ public class DaycareCalendarFragment extends Fragment {
         daycareCalendarViewModel.getCalendarResponse().observe(this, daycareCalendarResultObserver);
         daycareCalendarViewModel.getDogProfileList().observe(this, dogListObserver);
 
-        LocalDate minimumDate = LocalDate.now();
+        LocalDate minimumDate = LocalDate.now().minusMonths(12);
         LocalDate maximumDate = LocalDate.now().plusMonths(3);
 
         calendarView.addDecorators(

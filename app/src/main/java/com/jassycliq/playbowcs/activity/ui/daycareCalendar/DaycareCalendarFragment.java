@@ -22,6 +22,7 @@ import com.jassycliq.playbowcs.R;
 import com.jassycliq.playbowcs.activity.data.model.DaycareCalendarDogProfile;
 import com.jassycliq.playbowcs.databinding.FragmentDaycareCalendarBinding;
 import com.jassycliq.playbowcs.decorators.BlockWeekendsDecorator;
+import com.prolificinteractive.materialcalendarview.CalendarMode;
 import com.prolificinteractive.materialcalendarview.MaterialCalendarView;
 
 import org.jetbrains.annotations.NotNull;
@@ -101,7 +102,18 @@ public class DaycareCalendarFragment extends Fragment {
         calendarView.getRightArrow().setTint(requireActivity().getColor(R.color.onSurface));
         calendarView.setDateTextAppearance(requireActivity().getColor(R.color.onSurface));
 
+        calendarView.setOnTitleClickListener(v -> {
+            if (calendarView.getCalendarMode() == CalendarMode.WEEKS) {
+                calendarView.state().edit().setCalendarDisplayMode(CalendarMode.MONTHS).commit();
+            } else if (calendarView.getCalendarMode() == CalendarMode.MONTHS) {
+                calendarView.state().edit().setCalendarDisplayMode(CalendarMode.WEEKS).commit();
+            }
+        });
+
         calendarView.setOnDateChangedListener((widget, date, selected) -> {
+            if (calendarView.getCalendarMode() == CalendarMode.MONTHS) {
+                calendarView.state().edit().setCalendarDisplayMode(CalendarMode.WEEKS).commit();
+            }
             daycareCalendarViewModel.getDogsAttending(date);
         });
 

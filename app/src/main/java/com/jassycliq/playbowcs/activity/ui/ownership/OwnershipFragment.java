@@ -1,7 +1,9 @@
 package com.jassycliq.playbowcs.activity.ui.ownership;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -9,6 +11,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -22,6 +25,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.jassycliq.playbowcs.R;
 import com.jassycliq.playbowcs.UserProfile;
 import com.jassycliq.playbowcs.activity.data.model.OwnershipModel;
@@ -36,6 +40,7 @@ import static com.jassycliq.playbowcs.utils.Constants.SHARED_PREF;
 public class OwnershipFragment extends Fragment {
     private SwipeRefreshLayout swipeContainer;
     private RecyclerView recyclerView;
+    FloatingActionButton floatingActionButton;
     private UserProfile mBinding;
     private SharedPreferences sharedPreferences;
     private static FragmentManager fragmentManager;
@@ -61,6 +66,7 @@ public class OwnershipFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         recyclerView = view.findViewById(R.id.ownership_recycler_view);
         swipeContainer = view.findViewById(R.id.ownership_swipe_refresh);
+        floatingActionButton = view.findViewById(R.id.fragment_ownership_floating_action_button);
         sharedPreferences = requireActivity().getSharedPreferences(SHARED_PREF, Context.MODE_PRIVATE);
 
         recyclerView.setHasFixedSize(true);
@@ -97,6 +103,10 @@ public class OwnershipFragment extends Fragment {
 
                 Navigation.findNavController(requireActivity(), R.id.container).navigate(R.id.action_homeFragment_to_loginActivity);
             }
+        });
+
+        floatingActionButton.setOnClickListener(v -> {
+            composeEmail(ownershipViewModel.getActiveUsers(), "PlayBow Test");
         });
 
         ownershipViewModel.getUsers(swipeContainer);
@@ -148,6 +158,22 @@ public class OwnershipFragment extends Fragment {
                 Navigation.findNavController(v).navigate(R.id.action_homeFragment_to_userProfileFragment);
             });
             mBinding.executePendingBindings();
+        }
+    }
+
+    public void composeEmail(String[] addresses, String subject) {
+        if (addresses != null) {
+            String[] playbowEmail = {"woof@playbowdogs.com"};
+            Intent intent = new Intent(Intent.ACTION_SENDTO);
+            intent.setData(Uri.parse("mailto:")); // only email apps should handle this
+            intent.putExtra(Intent.EXTRA_EMAIL, playbowEmail);
+            intent.putExtra(Intent.EXTRA_BCC, addresses);
+            intent.putExtra(Intent.EXTRA_SUBJECT, subject);
+            if (intent.resolveActivity(requireActivity().getPackageManager()) != null) {
+                startActivity(intent);
+            }
+        } else {
+            Toast.makeText(requireContext(), "No users loaded yet!", Toast.LENGTH_SHORT).show();
         }
     }
 }

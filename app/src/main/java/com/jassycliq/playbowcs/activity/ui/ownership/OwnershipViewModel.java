@@ -72,33 +72,35 @@ public class OwnershipViewModel extends AndroidViewModel {
         final String lowerCaseQuery = query.toLowerCase();
 
         final List<OwnershipModel.UserProfile> filteredModelList = new ArrayList<>();
-        for (OwnershipModel.UserProfile model : models) {
-            final String userEmail = model.getUsername().toLowerCase();
-            final String userFirstName = model.getUserFirstName().toLowerCase();
-            final String userLastName = model.getUserLastName().toLowerCase();
-            final String userFullName = userFirstName + " " + userLastName;
+        if (models != null) {
+            for (OwnershipModel.UserProfile model : models) {
+                final String userEmail = model.getUsername().toLowerCase();
+                final String userFirstName = model.getUserFirstName().toLowerCase();
+                final String userLastName = model.getUserLastName().toLowerCase();
+                final String userFullName = userFirstName + " " + userLastName;
 
-            if (!model.getDogOwnership().getDogs().isEmpty()) {
-                for (OwnershipModel.UserProfile.DogOwnership.Dog dog : model.getDogOwnership().getDogs()) {
-                    final String dogName = dog.getDogName().toLowerCase();
+                if (!model.getDogOwnership().getDogs().isEmpty()) {
+                    for (OwnershipModel.UserProfile.DogOwnership.Dog dog : model.getDogOwnership().getDogs()) {
+                        final String dogName = dog.getDogName().toLowerCase();
 
-                    if (dogName.contains(lowerCaseQuery)) {
-                        filteredModelList.add(model);
+                        if (dogName.contains(lowerCaseQuery)) {
+                            filteredModelList.add(model);
+                        }
                     }
                 }
-            }
 
-            if (userEmail.contains(lowerCaseQuery)) {
-                filteredModelList.add(model);
-            }
-            if (userFirstName.contains(lowerCaseQuery)) {
-                filteredModelList.add(model);
-            }
-            if (userLastName.contains(lowerCaseQuery)) {
-                filteredModelList.add(model);
-            }
-            if(userFullName.contains(lowerCaseQuery)) {
-                filteredModelList.add(model);
+                if (userEmail.contains(lowerCaseQuery)) {
+                    filteredModelList.add(model);
+                }
+                if (userFirstName.contains(lowerCaseQuery)) {
+                    filteredModelList.add(model);
+                }
+                if (userLastName.contains(lowerCaseQuery)) {
+                    filteredModelList.add(model);
+                }
+                if (userFullName.contains(lowerCaseQuery)) {
+                    filteredModelList.add(model);
+                }
             }
         }
         return filteredModelList;
@@ -114,5 +116,23 @@ public class OwnershipViewModel extends AndroidViewModel {
 
     private List<OwnershipModel.UserProfile> getmModels() {
         return mModels;
+    }
+
+    public String[] getActiveUsers() {
+        List<OwnershipModel.UserProfile> completeUserList = mModels;
+        ArrayList<String> activeUsersArrayList = new ArrayList<String>();
+
+        if (mModels != null) {
+            for (int i = 0; i < completeUserList.size(); i++) {
+                OwnershipModel.UserProfile chosenUser = completeUserList.get(i);
+                if (chosenUser.getUserStatus().equals("True")) {
+                    activeUsersArrayList.add(chosenUser.getUsername());
+                }
+            }
+
+            String[] activeUsers = new String[activeUsersArrayList.size()];
+            activeUsers = activeUsersArrayList.toArray(activeUsers);
+            return activeUsers;
+        } else return null;
     }
 }

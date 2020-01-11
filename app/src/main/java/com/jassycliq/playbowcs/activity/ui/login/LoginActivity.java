@@ -142,10 +142,10 @@ public class LoginActivity extends AppCompatActivity {
         prefsEditor.putString(DATABEAN, json);
         prefsEditor.putBoolean(FIRST_RUN, false);
         prefsEditor.apply();
-        String welcome = getString(R.string.welcome) + " " + model.getFirstname() + " " + model.getLastname();
+//        String welcome = getString(R.string.welcome) + " " + model.getFirstname() + " " + model.getLastname();
         Intent intent = new Intent(this, OwnershipActivity.class);
         startActivity(intent);
-        Toast.makeText(getApplicationContext(), welcome, Toast.LENGTH_LONG).show();
+//        Toast.makeText(getApplicationContext(), welcome, Toast.LENGTH_LONG).show();
         finish();
     }
 

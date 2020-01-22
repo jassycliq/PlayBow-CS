@@ -31,9 +31,9 @@ public class HomePageAdapter extends FragmentPagerAdapter {
         // getItem is called to instantiate the fragment for the given page.
         switch (position) {
             case 0:
-                return new OwnershipFragment();
-            case 1:
                 return new DaycareCalendarFragment();
+            case 1:
+                return new OwnershipFragment();
             default:
                 return null;
         }

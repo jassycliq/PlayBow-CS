@@ -56,7 +56,7 @@ public class OwnershipModel {
         this.data = data;
     }
 
-    public class Data {
+    public static class Data {
 
         @SerializedName("user_profile")
         @Expose
@@ -207,7 +207,7 @@ public class OwnershipModel {
                 this.dogs = dogs;
             }
 
-            public class Dog {
+            public static class Dog {
 
                 @SerializedName("dogID")
                 @Expose

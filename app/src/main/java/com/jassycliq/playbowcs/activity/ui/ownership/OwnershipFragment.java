@@ -109,6 +109,16 @@ public class OwnershipFragment extends Fragment {
             composeEmail(ownershipViewModel.getActiveUsers(), "PlayBow Test");
         });
 
+        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener(){
+            @Override
+            public void onScrolled(@NotNull RecyclerView recyclerView, int dx, int dy){
+                if (dy > 0)
+                    floatingActionButton.hide();
+                else if (dy < 0)
+                    floatingActionButton.show();
+            }
+        });
+
         ownershipViewModel.getUsers(swipeContainer);
     }
 

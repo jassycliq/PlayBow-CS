@@ -7,21 +7,21 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.jassycliq.playbowcs.UserProfile;
-import com.jassycliq.playbowcs.activity.data.model.OwnershipModel;
-import com.jassycliq.playbowcs.activity.ui.ownership.OwnershipFragment;
+import com.jassycliq.playbowcs.UserTransactionHistoryBinding;
+import com.jassycliq.playbowcs.activity.data.model.UserTransactionHistory;
+import com.jassycliq.playbowcs.activity.ui.userDetailsFinancial.UserDetailsFinancialFragment;
 import com.jassycliq.playbowcs.utils.SafeSortedList;
 
 import java.util.Comparator;
 import java.util.List;
 
-public class OwnershipAdapter extends RecyclerView.Adapter<OwnershipFragment.UserViewHolder> {
+public class UserDetailsFinancialHistoryAdapter extends RecyclerView.Adapter<UserDetailsFinancialFragment.UserViewHolder> {
 
     private final LayoutInflater mInflater;
-    private final Comparator<OwnershipModel.UserProfile> mComparator;
+    private final Comparator<UserTransactionHistory> mComparator;
 
     // Provide a suitable constructor (depends on the kind of dataset)
-    public OwnershipAdapter(Context context, Comparator<OwnershipModel.UserProfile> comparator) {
+    public UserDetailsFinancialHistoryAdapter(Context context, Comparator<UserTransactionHistory> comparator) {
         mInflater = LayoutInflater.from(context);
         mComparator = comparator;
     }
@@ -29,23 +29,23 @@ public class OwnershipAdapter extends RecyclerView.Adapter<OwnershipFragment.Use
     // Create new views (invoked by the layout manager)
     @NonNull
     @Override
-    public OwnershipFragment.UserViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public UserDetailsFinancialFragment.UserViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         // create a new view
         LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
-        final UserProfile binding = UserProfile.inflate(layoutInflater, parent, false);
-        return new OwnershipFragment.UserViewHolder(binding);
+        final UserTransactionHistoryBinding binding = UserTransactionHistoryBinding.inflate(layoutInflater, parent, false);
+        return new UserDetailsFinancialFragment.UserViewHolder(binding);
     }
 
     // Provide a reference to the views for each data item
     // Complex data items may need more than one view per item, and
     // you provide access to all the views for a data item in a view holder
     @Override
-    public void onBindViewHolder(OwnershipFragment.UserViewHolder holder, int position) {
-        final OwnershipModel.UserProfile model = mSortedList.get(position);
+    public void onBindViewHolder(UserDetailsFinancialFragment.UserViewHolder holder, int position) {
+        final UserTransactionHistory model = mSortedList.get(position);
         holder.bind(model);
     }
 
-    private final SafeSortedList<OwnershipModel.UserProfile> mSortedList = new SafeSortedList<>(OwnershipModel.UserProfile.class, new SafeSortedList.Callback<OwnershipModel.UserProfile>() {
+    private final SafeSortedList<UserTransactionHistory> mSortedList = new SafeSortedList<UserTransactionHistory>(UserTransactionHistory.class, new SafeSortedList.Callback<UserTransactionHistory>() {
         @Override
         public void onInserted(int position, int count) {
             notifyItemRangeInserted(position, count);
@@ -67,17 +67,17 @@ public class OwnershipAdapter extends RecyclerView.Adapter<OwnershipFragment.Use
         }
 
         @Override
-        public int compare(OwnershipModel.UserProfile a, OwnershipModel.UserProfile b) {
+        public int compare(UserTransactionHistory a, UserTransactionHistory b) {
             return mComparator.compare(a, b);
         }
 
         @Override
-        public boolean areContentsTheSame(OwnershipModel.UserProfile oldItem, OwnershipModel.UserProfile newItem) {
+        public boolean areContentsTheSame(UserTransactionHistory oldItem, UserTransactionHistory newItem) {
             return oldItem.equals(newItem);
         }
 
         @Override
-        public boolean areItemsTheSame(OwnershipModel.UserProfile item1, OwnershipModel.UserProfile item2) {
+        public boolean areItemsTheSame(UserTransactionHistory item1, UserTransactionHistory item2) {
             return item1.hashCode() == item2.hashCode();
         }
     });
@@ -88,30 +88,30 @@ public class OwnershipAdapter extends RecyclerView.Adapter<OwnershipFragment.Use
         return mSortedList.size();
     }
 
-    public void add(OwnershipModel.UserProfile model) {
+    public void add(UserTransactionHistory model) {
         mSortedList.add(model);
     }
 
-    public void remove(OwnershipModel.UserProfile model) {
+    public void remove(UserTransactionHistory model) {
         mSortedList.remove(model);
     }
 
-    public void add(List<OwnershipModel.UserProfile> models) {
+    public void add(List<UserTransactionHistory> models) {
         mSortedList.addAll(models);
     }
 
-    public void remove(List<OwnershipModel.UserProfile> models) {
+    public void remove(List<UserTransactionHistory> models) {
         mSortedList.beginBatchedUpdates();
-        for (OwnershipModel.UserProfile model : models) {
+        for (UserTransactionHistory model : models) {
             mSortedList.remove(model);
         }
         mSortedList.endBatchedUpdates();
     }
 
-    public void replaceAll(List<OwnershipModel.UserProfile> models) {
+    public void replaceAll(List<UserTransactionHistory> models) {
         mSortedList.beginBatchedUpdates();
         for (int i = mSortedList.size() - 1; i >= 0; i--) {
-            final OwnershipModel.UserProfile model = mSortedList.get(i);
+            final UserTransactionHistory model = mSortedList.get(i);
             if (!models.contains(model)) {
                 mSortedList.remove(model);
             }

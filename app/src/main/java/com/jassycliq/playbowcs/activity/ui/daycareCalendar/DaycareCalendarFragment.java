@@ -1,6 +1,7 @@
 package com.jassycliq.playbowcs.activity.ui.daycareCalendar;
 
 import android.os.Bundle;
+import android.util.ArraySet;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,6 +23,8 @@ import com.jassycliq.playbowcs.R;
 import com.jassycliq.playbowcs.activity.data.model.DaycareCalendarDogProfile;
 import com.jassycliq.playbowcs.databinding.FragmentDaycareCalendarBinding;
 import com.jassycliq.playbowcs.decorators.BlockWeekendsDecorator;
+import com.jassycliq.playbowcs.decorators.EventDecorator;
+import com.prolificinteractive.materialcalendarview.CalendarDay;
 import com.prolificinteractive.materialcalendarview.CalendarMode;
 import com.prolificinteractive.materialcalendarview.MaterialCalendarView;
 
@@ -29,6 +32,7 @@ import org.jetbrains.annotations.NotNull;
 import org.threeten.bp.LocalDate;
 
 import java.util.List;
+import java.util.Set;
 
 public class DaycareCalendarFragment extends Fragment {
     private DaycareCalendarViewModel daycareCalendarViewModel;
@@ -36,6 +40,8 @@ public class DaycareCalendarFragment extends Fragment {
     private RecyclerView recyclerView;
     private SwipeRefreshLayout swipeRefreshLayout;
     private MaterialCalendarView calendarView;
+    private Set<CalendarDay> calendarDaySetToday;
+    private CalendarDay calendarDayToday;
 
     @Override
     public View onCreateView(
@@ -53,6 +59,10 @@ public class DaycareCalendarFragment extends Fragment {
         recyclerView = mBinding.fragmentDaycareCalendarRecyclerView;
         swipeRefreshLayout = mBinding.fragmentDaycareCalendarSwipeRefresh;
         calendarView = mBinding.fragmentDaycareCalendarCalendarView;
+
+        calendarDayToday = CalendarDay.today();
+        calendarDaySetToday = new ArraySet<CalendarDay>();
+        calendarDaySetToday.add(calendarDayToday);
 
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(recyclerView.getContext()));
@@ -88,8 +98,11 @@ public class DaycareCalendarFragment extends Fragment {
         LocalDate minimumDate = LocalDate.now().minusMonths(12);
         LocalDate maximumDate = LocalDate.now().plusMonths(3);
 
+        final int eventColor = requireContext().getColor(R.color.colorEvent);
+
         calendarView.addDecorators(
-                new BlockWeekendsDecorator()
+                new BlockWeekendsDecorator(),
+                new EventDecorator(eventColor, calendarDaySetToday)
         );
 
         calendarView.state()

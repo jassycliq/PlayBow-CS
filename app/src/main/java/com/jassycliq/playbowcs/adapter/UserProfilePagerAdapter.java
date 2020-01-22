@@ -11,6 +11,7 @@ import androidx.fragment.app.FragmentPagerAdapter;
 import com.jassycliq.playbowcs.R;
 import com.jassycliq.playbowcs.activity.ui.userDetails.UserDetailsFragment;
 import com.jassycliq.playbowcs.activity.ui.userDetailsCalendar.UserDetailsCalendarFragment;
+import com.jassycliq.playbowcs.activity.ui.userDetailsFinancial.UserDetailsFinancialFragment;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -21,7 +22,7 @@ import org.jetbrains.annotations.NotNull;
 public class UserProfilePagerAdapter extends FragmentPagerAdapter {
 
     @StringRes
-    private static final int[] TAB_TITLES = new int[]{R.string.tab_text_1, R.string.tab_text_2};
+    private static final int[] TAB_TITLES = new int[]{R.string.tab_text_1, R.string.tab_text_2, R.string.tab_text_3};
     private final Context mContext;
 
     public UserProfilePagerAdapter(Context context, FragmentManager fm) {
@@ -38,6 +39,8 @@ public class UserProfilePagerAdapter extends FragmentPagerAdapter {
                 return new UserDetailsFragment();
             case 1:
                 return new UserDetailsCalendarFragment();
+            case 2:
+                return new UserDetailsFinancialFragment();
             default:
                 return null;
         }
@@ -51,7 +54,7 @@ public class UserProfilePagerAdapter extends FragmentPagerAdapter {
 
     @Override
     public int getCount() {
-        // Show 2 total pages.
-        return 2;
+        // Show 3 total pages.
+        return 3;
     }
 }

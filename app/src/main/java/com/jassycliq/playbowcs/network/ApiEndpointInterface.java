@@ -7,6 +7,7 @@ import com.jassycliq.playbowcs.activity.data.model.BookingResponse;
 import com.jassycliq.playbowcs.activity.data.model.DaycareCalendarResponse;
 import com.jassycliq.playbowcs.activity.data.model.LoggedInUser;
 import com.jassycliq.playbowcs.activity.data.model.OwnershipModel;
+import com.jassycliq.playbowcs.activity.data.model.UserTransactionHistoryResponse;
 import com.jassycliq.playbowcs.model.AddDepositModel;
 import com.jassycliq.playbowcs.model.BookingDetailsResponseModel;
 import com.jassycliq.playbowcs.model.BookingRateModel;
@@ -83,6 +84,12 @@ public interface ApiEndpointInterface {
     Call <OwnershipModel> updateUser(@Path(value = "id", encoded = false) int id,
                                      @Header("Authorization") String tokenString,
                                      @FieldMap Map<String, String> fields);
+
+    @FormUrlEncoded
+    @POST("canine/{id}/financial-history-details/")
+    Call <UserTransactionHistoryResponse> getFinancialHistory(@Path(value = "id", encoded = false) int id,
+                                                              @Header("Authorization") String tokenString,
+                                                              @FieldMap Map<String, String> fields);
 
 //    @POST("users/forgot-password/")
     @Multipart

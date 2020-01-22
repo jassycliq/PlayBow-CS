@@ -110,6 +110,7 @@ public class OwnershipViewModel extends AndroidViewModel {
         final List<OwnershipModel.UserProfile> filteredModelList = OwnershipViewModel.filter(getmModels(), query);
         getAdapter().replaceAll(filteredModelList);
     }
+
     OwnershipAdapter getAdapter() {
         return mAdapter;
     }

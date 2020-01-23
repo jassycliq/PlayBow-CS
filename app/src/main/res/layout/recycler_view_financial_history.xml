@@ -14,15 +14,18 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <TextView
-            android:id="@+id/recycler_view_financial_history_transaction_type"
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/recyclerview_financial_history_card_view"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
-            android:text="@{model.transactionDatetime.substring(0,10)}"
-            bind:layout_constraintBottom_toTopOf="@+id/recycler_view_financial_history_transaction_datetime"
-            bind:layout_constraintEnd_toStartOf="@+id/recycler_view_financial_history_transaction_status"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="8dp"
+            bind:cardCornerRadius="8dp"
+            bind:cardElevation="4dp"
+            bind:layout_constraintBottom_toBottomOf="parent"
+            bind:layout_constraintEnd_toEndOf="parent"
             bind:layout_constraintStart_toStartOf="parent"
             bind:layout_constraintTop_toTopOf="parent" />
 
@@ -31,50 +34,70 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:text="@{model.transactionStatus}"
-            bind:layout_constraintEnd_toStartOf="@+id/recycler_view_financial_history_transaction_message"
-            bind:layout_constraintStart_toStartOf="parent"
-            bind:layout_constraintTop_toBottomOf="@+id/recycler_view_financial_history_transaction_type" />
-
-        <TextView
-            android:id="@+id/recycler_view_financial_history_transaction_status"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:text="@{model.transactionType}"
-            bind:layout_constraintEnd_toStartOf="@+id/recycler_view_financial_history_closing_ewallet"
-            bind:layout_constraintStart_toEndOf="@+id/recycler_view_financial_history_transaction_type"
-            bind:layout_constraintTop_toTopOf="parent" />
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
+            android:text="@{model.transactionDatetime.substring(0,10)}"
+            android:textAppearance="@style/PrimaryTextList"
+            android:textStyle="bold"
+            android:translationZ="5dp"
+            bind:layout_constraintBottom_toTopOf="@+id/recycler_view_financial_history_transaction_ewallet"
+            bind:layout_constraintEnd_toEndOf="@id/recyclerview_financial_history_card_view"
+            bind:layout_constraintStart_toStartOf="@id/recyclerview_financial_history_card_view"
+            bind:layout_constraintTop_toTopOf="@id/recyclerview_financial_history_card_view" />
 
         <TextView
             android:id="@+id/recycler_view_financial_history_transaction_message"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="@{model.ewallet}"
-            bind:layout_constraintEnd_toStartOf="@+id/recycler_view_financial_history_ewallet"
-            bind:layout_constraintStart_toEndOf="@+id/recycler_view_financial_history_transaction_datetime"
-            bind:layout_constraintTop_toBottomOf="@+id/recycler_view_financial_history_transaction_status" />
+            android:layout_marginStart="16dp"
+            android:text="@{model.transactionMessage}"
+            android:translationZ="5dp"
+            bind:layout_constraintBottom_toTopOf="@+id/recycler_view_financial_history_amount_remaining"
+            bind:layout_constraintEnd_toStartOf="@id/recycler_view_financial_history_transaction_ewallet"
+            bind:layout_constraintStart_toStartOf="@id/recyclerview_financial_history_card_view"
+            bind:layout_constraintTop_toBottomOf="@id/recycler_view_financial_history_transaction_datetime" />
+
+<!--        Really shouldn't include logic in the xml but makes like easier for this instance -->
+        <TextView
+            android:id="@+id/recycler_view_financial_history_transaction_ewallet"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:text="@{'$' + model.ewallet}"
+            android:textColor='@{String.valueOf(model.transactionType).equals("Withdraw") ? @color/colorHoloRedLight : @color/colorHoloGreenLight }'
+            android:translationZ="5dp"
+            bind:layout_constraintBottom_toTopOf="@id/recycler_view_financial_history_closing_ewallet"
+            bind:layout_constraintEnd_toEndOf="@id/recyclerview_financial_history_card_view"
+            bind:layout_constraintStart_toEndOf="@id/recycler_view_financial_history_transaction_message"
+            bind:layout_constraintTop_toBottomOf="@id/recycler_view_financial_history_transaction_datetime"
+            bind:layout_constraintWidth_percent=".25" />
+
+        <TextView
+            android:id="@+id/recycler_view_financial_history_amount_remaining"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginBottom="8dp"
+            android:text="@string/recycler_view_financial_history_amount_remaining"
+            android:translationZ="5dp"
+            bind:layout_constraintBottom_toBottomOf="@id/recyclerview_financial_history_card_view"
+            bind:layout_constraintEnd_toStartOf="@id/recycler_view_financial_history_closing_ewallet"
+            bind:layout_constraintStart_toStartOf="@id/recyclerview_financial_history_card_view"
+            bind:layout_constraintTop_toBottomOf="@id/recycler_view_financial_history_transaction_message" />
 
         <TextView
             android:id="@+id/recycler_view_financial_history_closing_ewallet"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
-            android:text="@{model.transactionMessage}"
-            bind:layout_constraintEnd_toEndOf="parent"
-            bind:layout_constraintStart_toEndOf="@+id/recycler_view_financial_history_transaction_status"
-            bind:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/recycler_view_financial_history_ewallet"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="16dp"
-            android:text="@{model.closingEwallet}"
-            bind:layout_constraintEnd_toEndOf="parent"
-            bind:layout_constraintStart_toEndOf="@+id/recycler_view_financial_history_transaction_message"
-            bind:layout_constraintTop_toBottomOf="@+id/recycler_view_financial_history_closing_ewallet" />
+            android:layout_marginBottom="8dp"
+            android:text="@{'$' + model.closingEwallet}"
+            android:translationZ="5dp"
+            bind:layout_constraintBottom_toBottomOf="@id/recyclerview_financial_history_card_view"
+            bind:layout_constraintEnd_toEndOf="@id/recyclerview_financial_history_card_view"
+            bind:layout_constraintStart_toStartOf="@+id/recycler_view_financial_history_transaction_ewallet"
+            bind:layout_constraintTop_toBottomOf="@id/recycler_view_financial_history_transaction_message"
+            bind:layout_constraintWidth_percent=".25" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

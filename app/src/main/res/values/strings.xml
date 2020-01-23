@@ -42,4 +42,6 @@
     <string name="home">Home</string>
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
+    <string name="recycler_view_financial_history_amount_remaining">Amount Remaining</string>
+    <string name="fragment_user_details_financial_amount_ajustment">Amount Ajustment</string>
 </resources>

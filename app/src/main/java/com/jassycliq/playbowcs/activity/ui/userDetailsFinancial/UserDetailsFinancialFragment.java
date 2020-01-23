@@ -45,7 +45,7 @@ public class UserDetailsFinancialFragment extends Fragment {
         recyclerView = mBinding.fragmentUserDetailsFinancialRecyclerView;
         swipeRefreshLayout = mBinding.fragmentUserDetailsFinancialSwipeRefreshLayout;
 
-//        recyclerView.setHasFixedSize(true);
+        recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(recyclerView.getContext()));
     }
 
@@ -58,6 +58,10 @@ public class UserDetailsFinancialFragment extends Fragment {
         recyclerView.setAdapter(financialHistoryViewModel.getAdapter());
 
         swipeRefreshLayout.setOnRefreshListener(() -> financialHistoryViewModel.getUserDetailsFinancialHistory(swipeRefreshLayout));
+
+        if (financialHistoryViewModel.getmModels() == null) {
+            financialHistoryViewModel.getUserDetailsFinancialHistory(swipeRefreshLayout);
+        }
     }
 
     public static class UserViewHolder extends RecyclerView.ViewHolder {

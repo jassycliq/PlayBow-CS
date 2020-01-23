@@ -19,6 +19,7 @@ import com.jassycliq.playbowcs.network.RetrofitCallback;
 import com.jassycliq.playbowcs.network.RetrofitClientInstance;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
@@ -33,7 +34,7 @@ public class UserDetailsFinancialViewModel extends AndroidViewModel {
     }
 
     private LoggedInUser.DataBean userDatabean = LoggedInUserView.getDatabean();
-    private static final Comparator<UserTransactionHistory> ALPHABETICAL_COMPARATOR = (a, b) -> a.getUserId().compareTo(b.getUserId());
+    private static final Comparator<UserTransactionHistory> ALPHABETICAL_COMPARATOR = (a, b) -> a.getTransactionDatetime().compareTo(b.getTransactionDatetime());
     private UserDetailsFinancialHistoryAdapter mAdapter = new UserDetailsFinancialHistoryAdapter(getApplication().getApplicationContext(), ALPHABETICAL_COMPARATOR);
     private List<UserTransactionHistory> mModels;
     private OwnershipModel.UserProfile wanteUserProfile = UserProfileView.getDatabean();
@@ -44,7 +45,7 @@ public class UserDetailsFinancialViewModel extends AndroidViewModel {
         return userFinancialHistoryResult;
     }
 
-    private List<UserTransactionHistory> getmModels() {
+    List<UserTransactionHistory> getmModels() {
         return mModels;
     }
     UserDetailsFinancialHistoryAdapter getAdapter() {

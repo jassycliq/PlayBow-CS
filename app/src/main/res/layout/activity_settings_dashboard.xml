@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:bind="http://schemas.android.com/apk/res-auto" >
+
+    <data >
+        <variable
+            name="dashboard_model"
+            type="com.jassycliq.playbowcs.activity.data.model.SettingsDashboardResponse" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/fragment_settings_dashboard_ios_version_text_view"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:gravity="end"
+            android:text="@string/fragment_settings_dashboard_ios_version"
+            android:textAppearance="@style/PrimaryTextList"
+            bind:layout_constraintBaseline_toBaselineOf="@id/fragment_settings_dashboard_ios_version_edit_text"
+            bind:layout_constraintBottom_toTopOf="@id/fragment_settings_dashboard_android_version_text_view"
+            bind:layout_constraintEnd_toStartOf="@id/fragment_settings_dashboard_ios_version_edit_text"
+            bind:layout_constraintStart_toStartOf="parent"
+            bind:layout_constraintTop_toTopOf="parent" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/fragment_settings_dashboard_ios_version_edit_text"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="8dp"
+            android:ems="10"
+            android:gravity="center_horizontal"
+            android:inputType="textPersonName"
+            android:text="@{dashboard_model.Data.iosVersion}"
+            android:textAppearance="@style/SecondaryTextList"
+            bind:layout_constraintBottom_toTopOf="@id/fragment_settings_dashboard_android_edit_text"
+            bind:layout_constraintEnd_toEndOf="parent"
+            bind:layout_constraintStart_toEndOf="@id/fragment_settings_dashboard_ios_version_text_view"
+            bind:layout_constraintTop_toTopOf="parent"
+            bind:layout_constraintVertical_chainStyle="packed" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/fragment_settings_dashboard_android_version_text_view"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:gravity="end"
+            android:text="@string/fragment_settings_dashboard_android_version"
+            android:textAppearance="@style/PrimaryTextList"
+            bind:layout_constraintBaseline_toBaselineOf="@id/fragment_settings_dashboard_android_edit_text"
+            bind:layout_constraintBottom_toTopOf="@id/fragment_settings_dashboard_unlimited_standard_text_view"
+            bind:layout_constraintEnd_toStartOf="@id/fragment_settings_dashboard_android_edit_text"
+            bind:layout_constraintStart_toStartOf="parent"
+            bind:layout_constraintTop_toBottomOf="@+id/fragment_settings_dashboard_ios_version_text_view" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/fragment_settings_dashboard_android_edit_text"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="8dp"
+            android:ems="10"
+            android:gravity="center_horizontal"
+            android:inputType="textPersonName"
+            android:text="@={dashboard_model.data.androidVersion}"
+            android:textAppearance="@style/SecondaryTextList"
+            bind:layout_constraintBottom_toTopOf="@id/fragment_settings_dashboard_unlimited_standard_edit_text"
+            bind:layout_constraintEnd_toEndOf="parent"
+            bind:layout_constraintStart_toEndOf="@id/fragment_settings_dashboard_android_version_text_view"
+            bind:layout_constraintTop_toBottomOf="@id/fragment_settings_dashboard_ios_version_edit_text" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/fragment_settings_dashboard_unlimited_standard_text_view"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:gravity="end"
+            android:text="@string/activity_settings_dashboard_unlimited_standard_price"
+            android:textAppearance="@style/PrimaryTextList"
+            bind:layout_constraintBaseline_toBaselineOf="@id/fragment_settings_dashboard_unlimited_standard_edit_text"
+            bind:layout_constraintBottom_toTopOf="@id/fragment_settings_dashboard_unlimited_plus_text_view"
+            bind:layout_constraintEnd_toStartOf="@id/fragment_settings_dashboard_unlimited_standard_edit_text"
+            bind:layout_constraintStart_toStartOf="parent"
+            bind:layout_constraintTop_toBottomOf="@id/fragment_settings_dashboard_android_edit_text" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/fragment_settings_dashboard_unlimited_standard_edit_text"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="8dp"
+            android:ems="10"
+            android:gravity="center_horizontal"
+            android:inputType="textPersonName"
+            android:text="@={dashboard_model.data.unlimitedStandardPrice}"
+            android:textAppearance="@style/SecondaryTextList"
+            bind:layout_constraintBottom_toTopOf="@id/fragment_settings_dashboard_unlimited_plus_edit_text"
+            bind:layout_constraintEnd_toEndOf="parent"
+            bind:layout_constraintStart_toEndOf="@id/fragment_settings_dashboard_unlimited_standard_text_view"
+            bind:layout_constraintTop_toBottomOf="@id/fragment_settings_dashboard_android_edit_text" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/fragment_settings_dashboard_unlimited_plus_text_view"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:gravity="end"
+            android:text="@string/activity_settings_dashboard_unlimited_plus_price"
+            android:textAppearance="@style/PrimaryTextList"
+            bind:layout_constraintBaseline_toBaselineOf="@id/fragment_settings_dashboard_unlimited_plus_edit_text"
+            bind:layout_constraintBottom_toTopOf="@id/fragment_settings_dashboard_daily_refund_text_view"
+            bind:layout_constraintEnd_toStartOf="@id/fragment_settings_dashboard_unlimited_plus_edit_text"
+            bind:layout_constraintStart_toStartOf="parent"
+            bind:layout_constraintTop_toBottomOf="@id/fragment_settings_dashboard_unlimited_standard_text_view" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/fragment_settings_dashboard_unlimited_plus_edit_text"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="8dp"
+            android:ems="10"
+            android:gravity="center_horizontal"
+            android:inputType="textPersonName"
+            android:text="@={dashboard_model.data.unlimitedPlusPrice}"
+            android:textAppearance="@style/SecondaryTextList"
+            bind:layout_constraintBottom_toTopOf="@id/fragment_settings_dashboard_daily_refund_edit_text"
+            bind:layout_constraintEnd_toEndOf="parent"
+            bind:layout_constraintStart_toEndOf="@id/fragment_settings_dashboard_unlimited_standard_text_view"
+            bind:layout_constraintTop_toBottomOf="@id/fragment_settings_dashboard_unlimited_standard_edit_text" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/fragment_settings_dashboard_daily_refund_text_view"
+            android:layout_width="0dp"
+            android:layout_height="19dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:gravity="end"
+            android:text="@string/activity_settings_dashboard_daily_refund_percentage"
+            android:textAppearance="@style/PrimaryTextList"
+            bind:layout_constraintBaseline_toBaselineOf="@id/fragment_settings_dashboard_daily_refund_edit_text"
+            bind:layout_constraintBottom_toTopOf="@id/fragment_settings_dashboard_monthly_refund_text_view"
+            bind:layout_constraintEnd_toStartOf="@id/fragment_settings_dashboard_daily_refund_edit_text"
+            bind:layout_constraintStart_toStartOf="parent"
+            bind:layout_constraintTop_toBottomOf="@id/fragment_settings_dashboard_unlimited_plus_text_view" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/fragment_settings_dashboard_daily_refund_edit_text"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="8dp"
+            android:ems="10"
+            android:gravity="center_horizontal"
+            android:inputType="textPersonName"
+            android:text="@={dashboard_model.data.dailyRefundPercentage}"
+            android:textAppearance="@style/SecondaryTextList"
+            bind:layout_constraintBottom_toTopOf="@id/fragment_settings_dashboard_monthly_refund_edit_text"
+            bind:layout_constraintEnd_toEndOf="parent"
+            bind:layout_constraintStart_toEndOf="@id/fragment_settings_dashboard_unlimited_standard_text_view"
+            bind:layout_constraintTop_toBottomOf="@id/fragment_settings_dashboard_unlimited_plus_edit_text" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/fragment_settings_dashboard_monthly_refund_text_view"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:gravity="end"
+            android:text="@string/activity_settings_dashboard_monthly_refund_percentage"
+            android:textAppearance="@style/PrimaryTextList"
+            bind:layout_constraintBaseline_toBaselineOf="@id/fragment_settings_dashboard_monthly_refund_edit_text"
+            bind:layout_constraintBottom_toBottomOf="parent"
+            bind:layout_constraintEnd_toStartOf="@id/fragment_settings_dashboard_monthly_refund_edit_text"
+            bind:layout_constraintStart_toStartOf="parent"
+            bind:layout_constraintTop_toBottomOf="@id/fragment_settings_dashboard_daily_refund_text_view" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/fragment_settings_dashboard_monthly_refund_edit_text"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="16dp"
+            android:ems="10"
+            android:gravity="center_horizontal"
+            android:inputType="textPersonName"
+            android:text="@={dashboard_model.data.monthlyRefundPercentage}"
+            android:textAppearance="@style/SecondaryTextList"
+            bind:layout_constraintBottom_toBottomOf="parent"
+            bind:layout_constraintEnd_toEndOf="parent"
+            bind:layout_constraintStart_toEndOf="@id/fragment_settings_dashboard_monthly_refund_text_view"
+            bind:layout_constraintTop_toBottomOf="@id/fragment_settings_dashboard_daily_refund_edit_text" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

@@ -25,6 +25,8 @@
     <string name="home_tab_text_1">Daycare Calendar</string>
     <string name="home_tab_text_2">Clients</string>
     <string name="title_activity_main">MainActivity</string>
+
+    <!-- Fragment User Details -->
     <string name="fragment_user_details_first_name">First Name</string>
     <string name="fragment_user_details_last_name">Last Name</string>
     <string name="fragment_user_details_email_username">Email/Username</string>
@@ -39,9 +41,35 @@
     <string name="fragment_user_details_new_password">New Password</string>
     <string name="fragment_user_details_password">Password</string>
     <string name="fragment_daycare_calendar_textview">"Dogs coming in: %1$d</string>
+
     <string name="home">Home</string>
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
     <string name="recycler_view_financial_history_amount_remaining">Amount Remaining</string>
     <string name="fragment_user_details_financial_amount_ajustment">Amount Ajustment</string>
+    <string name="main_menu_options">Options</string>
+    <string name="navigation_menu_settings">Settings</string>
+
+    <!-- Preference Titles -->
+    <string name="messages_header">Messages</string>
+    <string name="sync_header">Sync</string>
+
+    <!-- Messages Preferences -->
+    <string name="signature_title">Your signature</string>
+    <string name="reply_title">Default reply action</string>
+
+    <!-- Sync Preferences -->
+    <string name="sync_title">Sync email periodically</string>
+    <string name="attachment_title">Download incoming attachments</string>
+    <string name="attachment_summary_on">Automatically download attachments for incoming emails
+    </string>
+    <string name="attachment_summary_off">Only download attachments when manually requested</string>
+
+    <!-- Settings Dashboard -->
+    <string name="fragment_settings_dashboard_ios_version">iOS Version:</string>
+    <string name="fragment_settings_dashboard_android_version">Android Version:</string>
+    <string name="activity_settings_dashboard_unlimited_standard_price">Unlimited Standard Price:</string>
+    <string name="activity_settings_dashboard_unlimited_plus_price">Unlimited Plus Price:</string>
+    <string name="activity_settings_dashboard_daily_refund_percentage">Daily Refund Percentage:</string>
+    <string name="activity_settings_dashboard_monthly_refund_percentage">Monthly Refund Percentage:</string>
 </resources>

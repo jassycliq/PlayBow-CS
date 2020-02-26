@@ -9,7 +9,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProviders;
+import  	androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
@@ -53,7 +53,7 @@ public class UserDetailsFinancialFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        financialHistoryViewModel = ViewModelProviders.of(this).get(UserDetailsFinancialViewModel.class);
+        financialHistoryViewModel = new ViewModelProvider(this).get(UserDetailsFinancialViewModel.class);
 
         recyclerView.setAdapter(financialHistoryViewModel.getAdapter());
 

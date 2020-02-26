@@ -115,7 +115,7 @@ public class OwnershipViewModel extends AndroidViewModel {
         return mAdapter;
     }
 
-    private List<OwnershipModel.UserProfile> getmModels() {
+    public List<OwnershipModel.UserProfile> getmModels() {
         return mModels;
     }
 

@@ -21,24 +21,24 @@
             app:destination="@id/userProfileFragment"
             app:enterAnim="@anim/nav_default_enter_anim"
             app:exitAnim="@anim/nav_default_exit_anim"
-            app:popUpTo="@id/homeFragment"
+            app:launchSingleTop="true"
             app:popEnterAnim="@anim/nav_default_pop_enter_anim"
             app:popExitAnim="@anim/nav_default_pop_exit_anim"
-            app:launchSingleTop="true" />
+            app:popUpToInclusive="false" />
+        <action
+            android:id="@+id/action_homeFragment_to_settingsDashboard"
+            app:destination="@id/settingsDashboard"
+            app:enterAnim="@anim/fragment_close_enter"
+            app:exitAnim="@anim/fragment_close_exit"
+            app:launchSingleTop="true"
+            app:popEnterAnim="@anim/fragment_fade_enter"
+            app:popExitAnim="@anim/fragment_fade_exit"
+            app:popUpToInclusive="false" />
     </fragment>
-    <fragment
-        android:id="@+id/ownershipFragment"
-        android:name="com.jassycliq.playbowcs.activity.ui.ownership.OwnershipFragment"
-        android:label="fragment_ownership"
-        tools:layout="@layout/fragment_ownership" />
-    <fragment
-        android:id="@+id/dayCareCalendarFragment"
-        android:name="com.jassycliq.playbowcs.activity.ui.daycareCalendar.DaycareCalendarFragment"
-        android:label="DayCareCalendarFragment" />
     <fragment
         android:id="@+id/userProfileFragment"
         android:name="com.jassycliq.playbowcs.activity.ui.userProfile.UserProfileFragment"
-        android:label="UserProfileFragment" >
+        android:label="UserProfileFragment">
         <action
             android:id="@+id/action_userProfileFragment_to_homeFragment"
             app:destination="@id/homeFragment"
@@ -49,17 +49,15 @@
             app:popExitAnim="@anim/nav_default_pop_exit_anim"
             app:popUpTo="@id/homeFragment" />
     </fragment>
-    <fragment
-        android:id="@+id/userDetailsFragment"
-        android:name="com.jassycliq.playbowcs.activity.ui.userDetails.UserDetailsFragment"
-        android:label="UserDetailsFragment" />
-    <fragment
-        android:id="@+id/userDetailsCalendarFragment"
-        android:name="com.jassycliq.playbowcs.activity.ui.userDetailsCalendar.UserDetailsCalendarFragment"
-        android:label="UserDetailsCalendarFragment" />
     <activity
         android:id="@+id/loginActivity"
         android:name="com.jassycliq.playbowcs.activity.ui.login.LoginActivity"
         android:label="activity_login"
         tools:layout="@layout/activity_login" />
+    <activity
+        android:id="@+id/settingsDashboard"
+        android:name="com.jassycliq.playbowcs.activity.ui.settingsDashboard.SettingsDashboard"
+        android:label="SettingsDashboard"
+        tools:layout="@layout/activity_settings_dashboard"
+        />
 </navigation>

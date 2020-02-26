@@ -9,7 +9,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProviders;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.viewpager.widget.ViewPager;
 
 import com.google.android.material.tabs.TabLayout;
@@ -37,6 +37,21 @@ public class UserProfileFragment extends Fragment {
                              @Nullable Bundle savedInstanceState) {
         mBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_user_profile, container, false);
         mBinding.setLifecycleOwner(this);
+
+        sharedViewModel = new ViewModelProvider(requireActivity()).get(SharedViewModel.class);
+        userProfile = sharedViewModel.getSelected().getValue();
+        if (userProfile != null && userProfile.getDogOwnership().getDogs().size() != 0) {
+            StringBuilder dogNames = new StringBuilder();
+
+            for (int i = 0; i < userProfile.getDogOwnership().getDogs().size(); i++) {
+                if (i > 0) {
+                    dogNames.append(", ");
+                }
+                dogNames.append(userProfile.getDogOwnership().getDogs().get(i).getDogName());
+            }
+
+            requireActivity().setTitle(dogNames + " (" + userProfile.getUserFirstName() + " " + userProfile.getUserLastName() + ")");
+        }
         return mBinding.getRoot();
     }
 
@@ -49,8 +64,7 @@ public class UserProfileFragment extends Fragment {
     @Override
     public void onViewCreated(@NotNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        mViewModel = ViewModelProviders.of(this).get(UserProfileViewModel.class);
-        sharedViewModel = ViewModelProviders.of(requireActivity()).get(SharedViewModel.class);
+        mViewModel = new ViewModelProvider(this).get(UserProfileViewModel.class);
         UserProfilePagerAdapter userProfilePagerAdapter = new UserProfilePagerAdapter(requireContext(), this.getChildFragmentManager());
         ViewPager viewPager = view.findViewById(R.id.view_pager);
         viewPager.setAdapter(userProfilePagerAdapter);
@@ -58,7 +72,6 @@ public class UserProfileFragment extends Fragment {
         TabLayout tabs = view.findViewById(R.id.tabs);
         tabs.setupWithViewPager(viewPager);
 
-        userProfile = sharedViewModel.getSelected().getValue();
         mBinding.setModel(userProfile);
 
         // TODO: Eventually transition to a single FAB for both fragments instead of a FAB for each fragment
@@ -71,5 +84,11 @@ public class UserProfileFragment extends Fragment {
 //                }
 //            }
 //        });
+    }
+
+    @Override
+    public void onPause() {
+        requireActivity().setTitle(R.string.app_name);
+        super.onPause();
     }
 }

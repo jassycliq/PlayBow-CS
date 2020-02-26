@@ -11,7 +11,7 @@ import androidx.collection.ArraySet;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProviders;
+import  	androidx.lifecycle.ViewModelProvider;
 
 import com.jakewharton.threetenabp.AndroidThreeTen;
 import com.jassycliq.playbowcs.R;
@@ -49,8 +49,8 @@ public class UserDetailsCalendarFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         AndroidThreeTen.init(requireActivity());
 
-        userDetailsCalendarViewModel = ViewModelProviders.of(this).get(UserDetailsCalendarViewModel.class);
-        sharedViewModel = ViewModelProviders.of(requireActivity()).get(SharedViewModel.class);
+        userDetailsCalendarViewModel = new ViewModelProvider(this).get(UserDetailsCalendarViewModel.class);
+        sharedViewModel = new ViewModelProvider(requireActivity()).get(SharedViewModel.class);
 
         receivedDates = new ArraySet<CalendarDay>();
         chosenDates = new ArraySet<CalendarDay>();
@@ -65,7 +65,7 @@ public class UserDetailsCalendarFragment extends Fragment {
         };
 
         // Observe the LiveData, passing in this activity as the LifecycleOwner and the observer.
-        userDetailsCalendarViewModel.getChosenDates().observe(this, chosenDayObserver);
+        userDetailsCalendarViewModel.getChosenDates().observe(getViewLifecycleOwner(), chosenDayObserver);
 
         LocalDate minimumDate = LocalDate.now();
         LocalDate maximumDate = LocalDate.now().plusMonths(3);

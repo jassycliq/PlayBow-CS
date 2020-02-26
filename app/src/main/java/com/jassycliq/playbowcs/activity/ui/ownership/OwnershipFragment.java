@@ -19,8 +19,11 @@ import androidx.appcompat.widget.SearchView;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
-import androidx.lifecycle.ViewModelProviders;
+import androidx.fragment.app.FragmentTransaction;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
+import androidx.navigation.ui.NavigationUI;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
@@ -30,6 +33,7 @@ import com.jassycliq.playbowcs.R;
 import com.jassycliq.playbowcs.UserProfile;
 import com.jassycliq.playbowcs.activity.data.model.OwnershipModel;
 import com.jassycliq.playbowcs.activity.ui.SharedViewModel;
+import com.jassycliq.playbowcs.activity.ui.settingsDashboard.SettingsDashboard;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -76,9 +80,9 @@ public class OwnershipFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        sharedViewModel = ViewModelProviders.of(requireActivity()).get(SharedViewModel.class);
-        ownershipViewModel = ViewModelProviders.of(this).get(OwnershipViewModel.class);
-        fragmentManager = getFragmentManager();
+        sharedViewModel = new ViewModelProvider(requireActivity()).get(SharedViewModel.class);
+        ownershipViewModel = new ViewModelProvider(this).get(OwnershipViewModel.class);
+        fragmentManager = requireActivity().getSupportFragmentManager();
 
         recyclerView.setAdapter(ownershipViewModel.getAdapter());
         swipeContainer.setColorSchemeResources(android.R.color.holo_blue_bright,
@@ -91,7 +95,7 @@ public class OwnershipFragment extends Fragment {
             ownershipViewModel.getUsers(swipeContainer);
         });
 
-        ownershipViewModel.getOwnershipResult().observe(this, ownershipResult -> {
+        ownershipViewModel.getOwnershipResult().observe(getViewLifecycleOwner(), ownershipResult -> {
             if (ownershipResult == null) {
                 return;
             }
@@ -130,9 +134,11 @@ public class OwnershipFragment extends Fragment {
     @Override
     public void onCreateOptionsMenu(@NotNull Menu menu, @NotNull MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
-        menu.clear();
+//        menu.clear();
 
         inflater.inflate(R.menu.main_menu, menu);
+        inflater.inflate(R.menu.navigation, menu);
+
         final MenuItem searchItem = menu.findItem(R.id.action_search);
         searchItem.setShowAsAction(MenuItem.SHOW_AS_ACTION_COLLAPSE_ACTION_VIEW | MenuItem.SHOW_AS_ACTION_IF_ROOM);
 
@@ -151,6 +157,17 @@ public class OwnershipFragment extends Fragment {
                 return true;
             }
         });
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        if (item.getItemId() == R.id.settingsDashboard) {
+            Navigation.findNavController(requireActivity(), R.id.container).navigate(R.id.action_homeFragment_to_settingsDashboard);
+
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     public static class UserViewHolder extends RecyclerView.ViewHolder {

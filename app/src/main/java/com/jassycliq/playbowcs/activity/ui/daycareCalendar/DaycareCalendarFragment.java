@@ -3,16 +3,23 @@ package com.jassycliq.playbowcs.activity.ui.daycareCalendar;
 import android.os.Bundle;
 import android.util.ArraySet;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.SearchView;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProviders;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
+import androidx.navigation.ui.NavigationUI;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
@@ -47,8 +54,26 @@ public class DaycareCalendarFragment extends Fragment {
     public View onCreateView(
             @NonNull LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
+        setHasOptionsMenu(true);
         mBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_daycare_calendar, container, false);
         return mBinding.getRoot();
+    }
+
+    @Override
+    public void onCreateOptionsMenu(@NotNull Menu menu, @NotNull MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+
+        inflater.inflate(R.menu.navigation, menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        if (item.getItemId() == R.id.settingsDashboard) {
+            Navigation.findNavController(mBinding.getRoot()).navigate(R.id.action_homeFragment_to_settingsDashboard);
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     @Override
@@ -72,7 +97,7 @@ public class DaycareCalendarFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        daycareCalendarViewModel = ViewModelProviders.of(this).get(DaycareCalendarViewModel.class);
+        daycareCalendarViewModel = new ViewModelProvider(this).get(DaycareCalendarViewModel.class);
 
         recyclerView.setAdapter(daycareCalendarViewModel.getmAdapter());
 
@@ -87,13 +112,11 @@ public class DaycareCalendarFragment extends Fragment {
             }
         };
 
-        final Observer<List<DaycareCalendarDogProfile>> dogListObserver = (List<DaycareCalendarDogProfile> dogList) -> {
-            swipeRefreshLayout.setRefreshing(false);
-        };
+        final Observer<List<DaycareCalendarDogProfile>> dogListObserver = (List<DaycareCalendarDogProfile> dogList) -> swipeRefreshLayout.setRefreshing(false);
 
         // Observe the LiveData, passing in this activity as the LifecycleOwner and the observer.
-        daycareCalendarViewModel.getCalendarResponse().observe(this, daycareCalendarResultObserver);
-        daycareCalendarViewModel.getDogProfileList().observe(this, dogListObserver);
+        daycareCalendarViewModel.getCalendarResponse().observe(getViewLifecycleOwner(), daycareCalendarResultObserver);
+        daycareCalendarViewModel.getDogProfileList().observe(getViewLifecycleOwner(), dogListObserver);
 
         LocalDate minimumDate = LocalDate.now().minusMonths(12);
         LocalDate maximumDate = LocalDate.now().plusMonths(3);
@@ -138,6 +161,11 @@ public class DaycareCalendarFragment extends Fragment {
                 swipeRefreshLayout.setRefreshing(false);
             }
         });
+
+        if (daycareCalendarViewModel.getmAdapter().getItemCount() == 0) {
+            daycareCalendarViewModel.getDogsAttending(calendarDayToday);
+            calendarView.setDateSelected(calendarDayToday, true);
+        }
     }
 
     public static class DogViewHolder extends RecyclerView.ViewHolder {

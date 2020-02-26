@@ -1,16 +1,18 @@
 package com.jassycliq.playbowcs.activity.ui.userDetails;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 
 import androidx.annotation.NonNull;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProviders;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 
 import com.jassycliq.playbowcs.R;
@@ -31,6 +33,7 @@ public class UserDetailsFragment extends Fragment {
     private UserDetailsViewModel userDetailsViewModel;
     private FragmentUserDetailsBinding mBinding;
     private OwnershipModel.UserProfile userProfile;
+    private InputMethodManager inputMethodManager;
 
     @Override
     public View onCreateView(
@@ -45,8 +48,10 @@ public class UserDetailsFragment extends Fragment {
     @Override
     public void onViewCreated(@NotNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        sharedViewModel = ViewModelProviders.of(requireActivity()).get(SharedViewModel.class);
-        userDetailsViewModel = ViewModelProviders.of(this).get(UserDetailsViewModel.class);
+        sharedViewModel = new ViewModelProvider(requireActivity()).get(SharedViewModel.class);
+        userDetailsViewModel = new ViewModelProvider(this).get(UserDetailsViewModel.class);
+        inputMethodManager = (InputMethodManager) requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+
         userProfile = sharedViewModel.getSelected().getValue();
         if (userProfile != null) {
             userDetailsViewModel.setCurrentUsername(userProfile.getUsername());
@@ -125,20 +130,25 @@ public class UserDetailsFragment extends Fragment {
 
         mBinding.floatingActionButton.setOnClickListener(v -> {
             String chipState = null;
+
             String firstName = Objects.requireNonNull(mBinding.firstNameEditText.getText()).toString();
             String lastName = Objects.requireNonNull(mBinding.lastNameEditText.getText()).toString();
 //            String userName = Objects.requireNonNull(mBinding.editTextTextEmailAddress.getText()).toString();
             String passWord = mBinding.newPasswordValidation.getText().toString();
             String postalAddress = mBinding.editTextTextPostalAddress.getText().toString();
             String accountBalanceAdjustment = mBinding.accountBalanceEditTextNumberDecimal.getText().toString();
+
             if (mBinding.chip2.isChecked()) {
                 chipState = "False";
             }
+
             if (mBinding.chip4.isChecked()) {
                 chipState = "True";
             }
+
             userDetailsViewModel.setUserInfo(firstName, lastName, passWord, chipState, postalAddress, accountBalanceAdjustment);
-            Navigation.findNavController(v).navigate(R.id.action_userProfileFragment_to_homeFragment);
+            inputMethodManager.hideSoftInputFromWindow(Objects.requireNonNull(getView()).getWindowToken(), 0);
+            requireActivity().getSupportFragmentManager().popBackStack();
         });
     }
 }

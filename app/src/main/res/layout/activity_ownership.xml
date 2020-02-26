@@ -7,6 +7,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".activity.ui.ownership.OwnershipActivity"
     >
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent" />
+
     <fragment
         android:id="@+id/container"
         android:layout_width="match_parent"
